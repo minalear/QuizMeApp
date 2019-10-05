@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 
 class FrontPage extends StatelessWidget {
   @override
@@ -7,7 +8,9 @@ class FrontPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('QuizMe'),
       ),
-      body: Text('Body'),
+      body: TeXView(
+        teXHTML: r"$$\frac{dy}{dt} = t^2 - y^3$$",
+      ),
     );
   }
 }
