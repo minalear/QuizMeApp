@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tex/flutter_tex.dart';
+import 'package:quizme/view/splashscreen.dart';
 
 class FrontPage extends StatelessWidget {
   @override
@@ -8,9 +9,7 @@ class FrontPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('QuizMe'),
       ),
-      body: TeXView(
-        teXHTML: r"$$\frac{dy}{dt} = t^2 - y^3$$",
-      ),
+      body: SplashScreen(),
     );
   }
 }
