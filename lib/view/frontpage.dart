@@ -9,7 +9,9 @@ class FrontPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('QuizMe'),
       ),
-      body: SplashScreen(),
+      body: Container(
+        child: Image.network("https://i.ytimg.com/vi/avZU1GxYbqc/maxresdefault.jpg"),
+      ),
     );
   }
 }
