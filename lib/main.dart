@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quizme/view/frontpage.dart';
-import 'package:quizme/view/splashscreen.dart';
+import './view/loginpage.dart';
+import './view/splashscreen.dart';
 
 void main() => runApp(new MaterialApp(home: QuizMeApp()));
 
@@ -13,9 +13,9 @@ class _QuizMeAppState extends State<QuizMeApp> {
   @override
   void initState() {
     super.initState();
-    new Future.delayed(Duration(seconds: 3), () {
+    new Future.delayed(Duration(seconds: 1), () {
       Navigator.push(context, MaterialPageRoute(
-        builder: (context) => FrontPage(),
+        builder: (context) => LoginPage(),
       ));
     });
   }
