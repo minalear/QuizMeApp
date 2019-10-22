@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import './view/loginpage.dart';
 import './view/splashscreen.dart';
 
-void main() => runApp(new MaterialApp(home: QuizMeApp()));
+void main() => runApp(MaterialApp(
+  theme: ThemeData(
+    backgroundColor: Colors.blue,
+  ),
+  home: QuizMeApp())
+);
 
 class QuizMeApp extends StatefulWidget {
   @override
@@ -22,8 +27,6 @@ class _QuizMeAppState extends State<QuizMeApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SplashScreen(),
-    );
+    return SplashScreen();
   }
 }
