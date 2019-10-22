@@ -9,17 +9,17 @@ class LoginPage extends StatelessWidget {
     return WillPopScope(
       onWillPop: (){ return Future.value(false); },
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        //backgroundColor: Theme.of(context).backgroundColor,
         body: Form(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(bottom: 25),
-                child: Image.network('https://files.logoscdn.com/v1/files/10480356/content.png?signature=GLxoFKrb6h3gO5p6j_QenMllszs')
+                padding: EdgeInsets.only(left: 15, right: 15),
+                child: Image.asset('assets/quizme-logo-banner.png')
               ),
               Container(
-                padding: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
                 child: TextFormField(
                   initialValue: '',
                   autocorrect: false,
@@ -35,7 +35,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(bottom: 40),
+                padding: EdgeInsets.only(bottom: 25, left: 10, right: 10),
                 child: TextFormField(
                   initialValue: '',
                   autocorrect: false,
@@ -66,8 +66,8 @@ class LoginPage extends StatelessWidget {
                   child: RichText(
                     text: TextSpan(
                       children: [
-                        TextSpan(text: 'Don\'t have an account? ', style: TextStyle(color: Colors.black)),
-                        TextSpan(text: 'Signup here!'),
+                        TextSpan(text: 'Don\'t have an account? '),
+                        TextSpan(text: 'Signup here!', style: TextStyle(color: Theme.of(context).hintColor)),
                       ],
                     ),
                   ),
