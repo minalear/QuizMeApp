@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 import './signuppage.dart';
+import '../controller/loginpage_controller.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return LoginPageState();
+  }
+}
+
+class LoginPageState extends State<LoginPage> {
+  LoginPageController controller;
+  var formKey = GlobalKey<FormState>();
+
+  LoginPageState() {
+    controller = LoginPageController(this);
+  }
+
   @override
   Widget build(BuildContext context) {
     // Use WillPopScope to disable the back button to prevent the user from
