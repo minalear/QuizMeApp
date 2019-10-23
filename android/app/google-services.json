@@ -22,6 +22,41 @@
       "api_key": [
         {
           "current_key": "AIzaSyDLOTo7CquBg7XLKHK5V1mB2mSvINfmGzY"
+        },
+        {
+          "current_key": "AIzaSyDLOTo7CquBg7XLKHK5V1mB2mSvINfmGzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950002495136-tmp2as89fi9jultprn3qes69a28g90cg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950002495136:android:e5e82e1a3b5c05f3b523c5",
+        "android_client_info": {
+          "package_name": "edu.uco.tfisher9.quizme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950002495136-tmp2as89fi9jultprn3qes69a28g90cg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLOTo7CquBg7XLKHK5V1mB2mSvINfmGzY"
+        },
+        {
+          "current_key": "AIzaSyDLOTo7CquBg7XLKHK5V1mB2mSvINfmGzY"
         }
       ],
       "services": {

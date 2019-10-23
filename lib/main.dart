@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 import './view/loginpage.dart';
 import './view/splashscreen.dart';
+import 'controller/utilities.dart';
 
-void main() => runApp(new MaterialApp(home: QuizMeApp()));
+void main() => runApp(MaterialApp(
+  theme: ThemeData(
+    accentColor: hexToColor("#FBEAFF"),
+    accentColorBrightness: Brightness.light,
+    backgroundColor: hexToColor("#845EC2"),
+    buttonColor: hexToColor("#B39CD0"),
+    hintColor: hexToColor("#00C9A7"),
+    primaryColor: hexToColor("#B39CD0"),
+    primaryColorBrightness: Brightness.light,
+    primaryColorDark: hexToColor("#4B4453"),
+    scaffoldBackgroundColor: hexToColor("#845EC2"),
+    splashColor: hexToColor("#00C9A7"),
+  ),
+  home: QuizMeApp())
+);
 
 class QuizMeApp extends StatefulWidget {
   @override
@@ -22,8 +37,6 @@ class _QuizMeAppState extends State<QuizMeApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SplashScreen(),
-    );
+    return SplashScreen();
   }
 }

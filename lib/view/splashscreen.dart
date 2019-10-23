@@ -7,7 +7,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        child: Image.network("https://www.logogenie.net/download/preview/medium/3589659"),
+        child: Image.asset('assets/quizme-logo.png')
       )
     );
   }
