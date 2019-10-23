@@ -15,6 +15,7 @@ void main() => runApp(MaterialApp(
     primaryColorDark: hexToColor("#4B4453"),
     scaffoldBackgroundColor: hexToColor("#845EC2"),
     splashColor: hexToColor("#00C9A7"),
+    errorColor: hexToColor("#ecb7bf"),
   ),
   home: QuizMeApp())
 );

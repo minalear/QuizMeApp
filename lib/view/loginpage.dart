@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './signuppage.dart';
 
+//TODO make this a Stateful widget
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
