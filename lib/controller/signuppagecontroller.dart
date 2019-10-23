@@ -20,8 +20,8 @@ class SignUpPageController {
   }
 
   String validatePassword(String value) {
-    if (value == null) {
-      return 'Enter a password';
+    if (value == null || value.length < 6) {
+      return 'Enter a password of 6 char min';
     }
     return null;
   }
