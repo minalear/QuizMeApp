@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../controller/homepage_controller.dart';
 import '../model/user.dart';
+import '../model/testdata.dart';
+import '../controller/utilities.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
@@ -60,7 +62,7 @@ class HomePageState extends State<HomePage> {
               ListTile(
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Sign Out'),
-                onTap: (){},
+                onTap: controller.signOut,
               )
             ],
           ),
@@ -70,7 +72,7 @@ class HomePageState extends State<HomePage> {
           onPressed: (){},
         ),
         body: ListView.builder(
-          itemCount: 5,
+          itemCount: TestData.testStudyGuides.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               padding: EdgeInsets.all(5),
@@ -80,16 +82,15 @@ class HomePageState extends State<HomePage> {
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error_outline),
                 ),
-                title: Text("This is a note"),
+                title: Text(TestData.testStudyGuides[index].title),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("Doc ID"),
-                    Text("Author"),
-                    Text("Publish Date"),
+                    Text('by ' + TestData.testStudyGuides[index].createdBy),
+                    Text(dateTimeFormat(TestData.testStudyGuides[index].pubDate, 'yyyy-MM-dd')),
                   ],
                 ),
-                onTap: (){},
+                onTap: () => controller.viewStudyGuide(TestData.testStudyGuides[index]),
                 onLongPress: (){},
               )
             );

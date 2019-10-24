@@ -24,7 +24,7 @@ class LoginPageState extends State<LoginPage> {
     return WillPopScope(
       onWillPop: (){ return Future.value(false); },
       child: Scaffold(
-        //backgroundColor: Theme.of(context).backgroundColor,
+        resizeToAvoidBottomInset: false,
         body: Form(
           key: formKey,
           child: Column(
@@ -76,6 +76,7 @@ class LoginPageState extends State<LoginPage> {
               // InkWell allows us to create clickable text
               InkWell(
                 // RichText widget allows us to style text in creative ways
+                onTap: (){ controller.createAccount(); },
                 child: Container(
                   padding: EdgeInsets.all(8),
                   child: RichText(
@@ -87,7 +88,6 @@ class LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                onTap: (){ controller.createAccount(); }
               ),
             ],
           ),
