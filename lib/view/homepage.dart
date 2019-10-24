@@ -52,7 +52,7 @@ class HomePageState extends State<HomePage> {
               ListTile(
                 leading: Icon(Icons.person),
                 title: Text('My Profile'),
-                onTap: (){},
+                onTap: controller.myProfile,
               ),
               ListTile(
                 leading: Icon(Icons.people),
