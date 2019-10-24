@@ -1,21 +1,16 @@
-import '../controller/signuppagecontroller.dart';
-import '../model/user.dart';
 import 'package:flutter/material.dart';
+import '../controller/signuppage_controller.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return SignUpPageState();
   }
-
 }
 
 class SignUpPageState extends State<SignUpPage> {
-
   SignUpPageController controller;
-  BuildContext context;
   var formKey = GlobalKey<FormState>();
-  User user = User();
 
   SignUpPageState() {
     controller = SignUpPageController(this);
@@ -23,7 +18,6 @@ class SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    this.context = context;
     return Scaffold( 
       appBar: AppBar(
         title: Text('Create Account'),
@@ -33,35 +27,38 @@ class SignUpPageState extends State<SignUpPage> {
         child: ListView(
           children: <Widget>[
             TextFormField( 
-              initialValue: user.email,
+              initialValue: '',
               autocorrect:  false,
               decoration: InputDecoration(
-                hintText: 'Email (as login name)',
-                labelText:  'Email',
+                hintText: 'email',
+                labelText:  'email',
               ),
+              keyboardType: TextInputType.emailAddress,
               validator: controller.validateEmail,
               onSaved: controller.saveEmail,
             ),
             TextFormField( 
-              initialValue: user.password,
+              initialValue: '',
+              autocorrect:  false,
+              decoration: InputDecoration(
+                hintText: 'username',
+                labelText:  'username',
+              ),
+              keyboardType: TextInputType.text,
+              validator: controller.validateUserName,
+              onSaved: controller.saveUserName,
+            ),
+            TextFormField( 
+              initialValue: '',
               autocorrect:  false,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: 'Password',
-                labelText:  'Password',
+                hintText: 'password',
+                labelText:  'password',
               ),
+              keyboardType: TextInputType.text,
               validator: controller.validatePassword,
               onSaved: controller.savePassword,
-            ),
-            TextFormField( 
-              initialValue: user.username,
-              autocorrect:  false,
-              decoration: InputDecoration(
-                hintText: 'Username',
-                labelText:  'Username',
-              ),
-              validator: controller.validateDisplayName,
-              onSaved: controller.saveDisplayName,
             ),
             RaisedButton(
               child: Text('Create Account'),

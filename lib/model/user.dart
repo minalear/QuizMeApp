@@ -29,11 +29,9 @@ class User {
     );
   }
 
-
   static const PROFILE_COLLECTION = 'userprofile';
   static const EMAIL = 'email';
   static const USERNAME = 'username';
   static const UID = 'uid';
-
 }
 

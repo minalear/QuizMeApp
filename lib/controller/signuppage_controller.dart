@@ -1,44 +1,39 @@
-import '../view/signuppage.dart';
-//import './myfirebase.dart';
-import '../view/popup.dart';
 import 'package:flutter/material.dart';
+import 'myfirebase.dart';
+import '../view/signuppage.dart';
+import '../view/popup.dart';
+import '../model/user.dart';
 
 class SignUpPageController {
+  User user = User();
   SignUpPageState state;
-
   SignUpPageController(this.state);
 
   String validateEmail(String value) {
-    if (value == null || !value.contains('.') || !value.contains('@')) {
-      return 'Enter a valid Email adress';
-    }
+    // TODO: Replace this with proper email validation
+    if (value == null || !value.contains('.') || !value.contains('@'))
+      return 'Enter a valid Email address';
     return null;
   }
-
-  void saveEmail(String value) {
-    state.user.email = value;
+  String validateUserName(String value) {
+    if (value == null || value.length < 3)
+      return 'Enter at least 3 characters';
+    return null;
   }
-
   String validatePassword(String value) {
-    if (value == null) {
+    if (value == null || value.length < 6)
       return 'Enter a password';
-    }
     return null;
   }
-
+  
+  void saveEmail(String value) {
+    user.email = value;
+  }
+  void saveUserName(String value) {
+    user.username = value;
+  }
   void savePassword(String value) {
-    state.user.password = value;
-  }
-
-  String validateDisplayName(String value) {
-    if (value == null || value.length < 3) {
-      return 'Enter at least 3 chars';
-    }
-    return null;
-  }
-
-  void saveDisplayName(String value) {
-    state.user.username = value;
+    user.password = value;
   }
 
   void createAccount() async {
@@ -48,36 +43,38 @@ class SignUpPageController {
 
     state.formKey.currentState.save();
 
-    // using email/password: sign up an account at Firebase
-  /*    try {
-        state.user.uid = await MyFireBase.createAccount(
-          email: state.user.email,
-          password: state.user.password,
-        );
-      } catch (e) {
-        PopUp.info(
-          title: 'Account creation failed!',
-          message: e.message != null ? e.message : e.toString(),
-          context: state.context,
-          action: () => Navigator.pop(state.context),
-        );
+    print('${user.email} and ${user.username}');
 
-        return; // do not proceed
-      }
-
-      // create user profile
-      try {
-        MyFireBase.createProfile(state.user);
-      } catch (e) {
-        state.user.displayName = null;
-        state.user.zip = null;
-      }
-
+    // Firebase Authentication/Account Creation
+    try {
+      user.uid = await MyFirebase.createAccount(
+        email: user.email,
+        password: user.password,
+      );
+    } catch (e) {
       PopUp.info(
-        title: 'Account created successfully!',
-        message: 'Your account is created with ${state.user.email}',
         context: state.context,
+        title: 'Account creation failed',
+        message: e.message != null ? e.message : e.toString(),
         action: () => Navigator.pop(state.context),
-      ); */
+      );
+
+      return;
+    }
+
+    // Create user profile
+    try {
+      MyFirebase.createProfile(user);
+    } catch (e) { }
+
+    PopUp.info(
+      context: state.context,
+      title: 'Account created successfully!',
+      message: 'Your account is created with ${user.email}',
+      action: () { 
+        Navigator.pop(state.context);
+        Navigator.pop(state.context); 
+      }
+    );
   }
 }
