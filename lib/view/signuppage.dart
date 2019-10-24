@@ -23,6 +23,7 @@ class SignUpPageState extends State<SignUpPage> {
       appBar: AppBar(
         title: Text('Create Account'),
       ),
+      resizeToAvoidBottomInset: false,
       body: Form (
         key: formKey,
         child: ListView(

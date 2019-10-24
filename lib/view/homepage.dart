@@ -19,12 +19,15 @@ class HomePageState extends State<HomePage> {
   HomePageController controller;
   List<int> toDeleteIndices;
 
-  HomePageState(this.user) {
+  HomePageState(User user) {
+    this.user = user;
     controller = HomePageController(this);
   }
 
   @override
   Widget build(BuildContext context) {
+    print('${user.email} and ${user.username} and ${user.uid}');
+
     this.context = context;
     return WillPopScope(
       onWillPop: (){ return Future.value(false); },

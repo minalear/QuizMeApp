@@ -26,8 +26,6 @@ class SignUpPageController {
 
     state.formKey.currentState.save();
 
-    print('${user.email} and ${user.username}');
-
     // Firebase Authentication/Account Creation
     try {
       user.uid = await MyFirebase.createAccount(
