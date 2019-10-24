@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
-import './signuppage.dart';
+import '../controller/loginpage_controller.dart';
+import '../controller/validator.dart';
 
-//TODO make this a Stateful widget
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return LoginPageState();
+  }
+}
+
+class LoginPageState extends State<LoginPage> {
+  LoginPageController controller;
+  var formKey = GlobalKey<FormState>();
+
+  LoginPageState() {
+    controller = LoginPageController(this);
+  }
+
   @override
   Widget build(BuildContext context) {
     // Use WillPopScope to disable the back button to prevent the user from
@@ -12,6 +26,7 @@ class LoginPage extends StatelessWidget {
       child: Scaffold(
         //backgroundColor: Theme.of(context).backgroundColor,
         body: Form(
+          key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -28,11 +43,10 @@ class LoginPage extends StatelessWidget {
                     hintText: 'email',
                     labelText: 'email',
                     icon: Icon(Icons.email),
-                    
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value){ return null; },
-                  onSaved: (value){},
+                  validator: Validator.validateEmail,
+                  onSaved: controller.saveEmail,
                 ),
               ),
               Container(
@@ -47,14 +61,14 @@ class LoginPage extends StatelessWidget {
                     icon: Icon(Icons.lock),
                   ),
                   keyboardType: TextInputType.text,
-                  validator: (value){ return null; },
-                  onSaved: (value){},
+                  validator: Validator.validatePassword,
+                  onSaved: controller.savePassword,
                 ),
               ),
               SizedBox(
                 child: RaisedButton(
                     child: Text('Sign In'),
-                    onPressed: (){},
+                    onPressed: (){ controller.login(); },
                   ),
                   width: double.infinity,
                   height: 45,
@@ -73,11 +87,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                onTap: (){ Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                  builder: (context) => SignUpPage(),
-                )); }
+                onTap: (){ controller.createAccount(); }
               ),
             ],
           ),
