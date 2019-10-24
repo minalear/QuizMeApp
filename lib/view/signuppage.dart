@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../controller/signuppage_controller.dart';
+import '../controller/validator.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -34,7 +35,7 @@ class SignUpPageState extends State<SignUpPage> {
                 labelText:  'email',
               ),
               keyboardType: TextInputType.emailAddress,
-              validator: controller.validateEmail,
+              validator: Validator.validateEmail,
               onSaved: controller.saveEmail,
             ),
             TextFormField( 
@@ -45,7 +46,7 @@ class SignUpPageState extends State<SignUpPage> {
                 labelText:  'username',
               ),
               keyboardType: TextInputType.text,
-              validator: controller.validateUserName,
+              validator: Validator.validateUserName,
               onSaved: controller.saveUserName,
             ),
             TextFormField( 
@@ -57,7 +58,7 @@ class SignUpPageState extends State<SignUpPage> {
                 labelText:  'password',
               ),
               keyboardType: TextInputType.text,
-              validator: controller.validatePassword,
+              validator: Validator.validatePassword,
               onSaved: controller.savePassword,
             ),
             RaisedButton(

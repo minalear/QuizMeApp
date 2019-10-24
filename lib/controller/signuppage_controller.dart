@@ -8,23 +8,6 @@ class SignUpPageController {
   User user = User();
   SignUpPageState state;
   SignUpPageController(this.state);
-
-  String validateEmail(String value) {
-    // TODO: Replace this with proper email validation
-    if (value == null || !value.contains('.') || !value.contains('@'))
-      return 'Enter a valid Email address';
-    return null;
-  }
-  String validateUserName(String value) {
-    if (value == null || value.length < 3)
-      return 'Enter at least 3 characters';
-    return null;
-  }
-  String validatePassword(String value) {
-    if (value == null || value.length < 6)
-      return 'Enter a password';
-    return null;
-  }
   
   void saveEmail(String value) {
     user.email = value;

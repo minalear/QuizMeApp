@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../controller/loginpage_controller.dart';
-import './signuppage.dart';
+import '../controller/validator.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,6 +26,7 @@ class LoginPageState extends State<LoginPage> {
       child: Scaffold(
         //backgroundColor: Theme.of(context).backgroundColor,
         body: Form(
+          key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -42,11 +43,10 @@ class LoginPageState extends State<LoginPage> {
                     hintText: 'email',
                     labelText: 'email',
                     icon: Icon(Icons.email),
-                    
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value){ return null; },
-                  onSaved: (value){},
+                  validator: Validator.validateEmail,
+                  onSaved: controller.saveEmail,
                 ),
               ),
               Container(
@@ -61,14 +61,14 @@ class LoginPageState extends State<LoginPage> {
                     icon: Icon(Icons.lock),
                   ),
                   keyboardType: TextInputType.text,
-                  validator: (value){ return null; },
-                  onSaved: (value){},
+                  validator: Validator.validatePassword,
+                  onSaved: controller.savePassword,
                 ),
               ),
               SizedBox(
                 child: RaisedButton(
                     child: Text('Sign In'),
-                    onPressed: (){},
+                    onPressed: (){ controller.login(); },
                   ),
                   width: double.infinity,
                   height: 45,
@@ -87,11 +87,7 @@ class LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                onTap: (){ Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                  builder: (context) => SignUpPage(),
-                )); }
+                onTap: (){ controller.createAccount(); }
               ),
             ],
           ),
