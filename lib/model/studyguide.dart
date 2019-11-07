@@ -24,8 +24,8 @@ class StudyGuide {
     this.createdByUID = '';
     this.notes = <NoteCard> [];
   }
-  StudyGuide.emptyWithUser(User user) {
-    this.title = '';
+  StudyGuide.newStudyGuide(User user, String title) {
+    this.title = title;
     this.createdBy = user.username;
     this.createdByUID = user.uid;
     this.notes = <NoteCard> [];

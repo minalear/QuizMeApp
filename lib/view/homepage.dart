@@ -69,7 +69,7 @@ class HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: (){},
+          onPressed: controller.createNewStudyGuide,
         ),
         body: ListView.builder(
           itemCount: TestData.testStudyGuides.length,

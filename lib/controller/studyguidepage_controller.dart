@@ -39,6 +39,7 @@ class StudyGuidePageController {
   }
 
   void goToStudyMode() {
+    if (state.studyGuide.notes.length <= 0) return;
     Navigator.push(state.context, MaterialPageRoute(
       builder: (context) => StudyModePage(state.studyGuide),
     ));

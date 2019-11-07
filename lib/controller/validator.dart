@@ -17,4 +17,11 @@ class Validator {
       return 'Enter a password';
     return null;
   }
+
+  // Popup form validation
+  static String validateTitle(String value) {
+    if (value == null || value.length == 0)
+      return 'Enter a title of appropriate length.';
+    return null;
+  }
 }
