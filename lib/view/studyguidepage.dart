@@ -29,11 +29,22 @@ class StudyGuidePageState extends State<StudyGuidePage> {
     }
   }
 
+  void changeState(Function fn) {
+    setState(fn);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Study Guide: ' + studyGuide.title),
+        title: Text(studyGuide.title),
+        actions: <Widget>[
+          FlatButton.icon(
+            icon: Icon(Icons.import_contacts),
+            label: Text('Study Now'),
+            onPressed: controller.goToStudyMode,
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -49,8 +60,12 @@ class StudyGuidePageState extends State<StudyGuidePage> {
             child: InkWell(
               onTap: () => controller.onCardTap(noteCard),
               child: Card(
-                semanticContainer: true,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
+                clipBehavior: Clip.antiAliasWithSaveLayer, // clip image to card boundaries
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                elevation: 5,
+                margin: EdgeInsets.all(8),
                 child: Stack(
                   fit: StackFit.expand,
                   children: <Widget>[
@@ -70,11 +85,6 @@ class StudyGuidePageState extends State<StudyGuidePage> {
                     ),
                   ],
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                elevation: 5,
-                margin: EdgeInsets.all(8),
               ),
             ),
           );
