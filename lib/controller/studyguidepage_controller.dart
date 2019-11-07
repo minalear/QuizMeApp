@@ -44,4 +44,20 @@ class StudyGuidePageController {
       builder: (context) => StudyModePage(state.studyGuide),
     ));
   }
+
+  void newNoteCard() {
+    state.changeState(() {
+      state.studyGuide.notes.add(NoteCard(
+        question: '[Question]',
+        answer: '[Answer]',
+      ));
+    });
+  }
+
+  void deleteNoteCard() {
+    state.changeState(() {
+      state.studyGuide.notes.removeAt(state.noteCardEditIndex);
+      state.noteCardEditIndex = -1;
+    });
+  }
 }

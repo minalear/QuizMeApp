@@ -35,6 +35,10 @@ class StudyGuidePageState extends State<StudyGuidePage> {
     setState(fn);
   }
 
+  bool editMode() {
+    return noteCardEditIndex != -1;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,8 +53,8 @@ class StudyGuidePageState extends State<StudyGuidePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: (){},
+        child: editMode() ? Icon(Icons.delete_outline) : Icon(Icons.add),
+        onPressed: editMode() ? controller.deleteNoteCard: controller.newNoteCard,
       ),
       body: Form(
         key: formKey,
@@ -83,6 +87,7 @@ class StudyGuidePageState extends State<StudyGuidePage> {
                           margin: EdgeInsets.only(bottom: 4),                        
                           child: (noteCardEditIndex == index) ? 
                             TextFormField(
+                              autofocus: true,
                               initialValue: noteCard.frontFacing ? noteCard.question : noteCard.answer,
                               autocorrect: true,
                               keyboardType: TextInputType.multiline,
