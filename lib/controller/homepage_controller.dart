@@ -28,4 +28,10 @@ class HomePageController {
       builder: (context) => StudyGuidePage(state.user, guide),
     ));
   }
+
+  void createNewStudyGuide() {
+    Navigator.push(state.context, MaterialPageRoute(
+      builder: (context) => StudyGuidePage(state.user, StudyGuide.emptyWithUser(state.user)),
+    ));
+  }
 }

@@ -28,7 +28,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print('${user.email} and ${user.username} and ${user.uid}');
+    //print('${user.email} and ${user.username} and ${user.uid}');
 
     this.context = context;
     return WillPopScope(

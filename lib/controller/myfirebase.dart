@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/user.dart';
+import '../model/studyguide.dart';
 
 class MyFirebase {
   // Account Handling
@@ -41,5 +42,21 @@ class MyFirebase {
       .setData(user.serialize());
   }
 
+  // Study Guide Handling
+  static Future<String> addStudyGuide(StudyGuide studyGuide) async {
+    var ref = await Firestore.instance.collection(StudyGuide.STUDYGUIDE_COLLECTION)
+      .add(studyGuide.serialize());
+    return ref.documentID;
+  }
+  static Future<void> updateStudyGuide(StudyGuide studyGuide) async {
+    await Firestore.instance.collection(StudyGuide.STUDYGUIDE_COLLECTION)
+      .document(studyGuide.documentId)
+      .setData(studyGuide.serialize());
+  }
 
+  static Future<StudyGuide> readStudyGuide(String docID) async {
+    var doc = await Firestore.instance.collection(StudyGuide.STUDYGUIDE_COLLECTION)
+      .document(docID).get();
+    return StudyGuide.deserialize(doc.data, docID);
+  }
 }

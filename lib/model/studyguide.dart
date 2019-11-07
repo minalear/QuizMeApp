@@ -1,15 +1,19 @@
+import 'package:QuizMe/model/user.dart';
+
 import '../model/notecard.dart';
 
 class StudyGuide {
   String documentId;
   String title;
   String createdBy;
+  String createdByUID;
   DateTime pubDate;
   List<NoteCard> notes;
 
   StudyGuide({
     this.title,
     this.createdBy,
+    this.createdByUID,
     this.pubDate,
     this.notes,
   });
@@ -17,6 +21,13 @@ class StudyGuide {
   StudyGuide.empty() {
     this.title = '';
     this.createdBy = '';
+    this.createdByUID = '';
+    this.notes = <NoteCard> [];
+  }
+  StudyGuide.emptyWithUser(User user) {
+    this.title = '';
+    this.createdBy = user.username;
+    this.createdByUID = user.uid;
     this.notes = <NoteCard> [];
   }
 
@@ -24,13 +35,14 @@ class StudyGuide {
     this.documentId = studyGuide.documentId;
     this.title = studyGuide.title;
     this.createdBy = studyGuide.createdBy;
+    this.createdByUID = studyGuide.createdByUID;
     this.pubDate = studyGuide.pubDate;
     this.notes = <NoteCard>[]..addAll(studyGuide.notes);
   }
 
   Map<String, dynamic> serialize() {
-    List<String> notequestions;
-    List<String> noteanswers;
+    List<String> notequestions = new List<String>();
+    List<String> noteanswers = new List<String>();
     // creating the list of notecard answers and questions 
     for(int n = 0; n < notes.length; n ++ )   {
       notequestions.add(notes[n].question);
@@ -40,6 +52,7 @@ class StudyGuide {
     return <String, dynamic>{
       TITLE: title,
       CREATEDBY: createdBy,
+      CREATEDBYUID: createdByUID,
       PUBDATE: pubDate,
       NOTEQUESTIONS: notequestions,
       NOTEANSWERS: noteanswers,
@@ -62,6 +75,7 @@ class StudyGuide {
     var studyGuide = StudyGuide(
       title: data[TITLE],
       createdBy: data[CREATEDBY],
+      createdByUID: data[CREATEDBYUID],
       pubDate: data[PUBDATE],
       notes: notes,
     );
@@ -72,9 +86,10 @@ class StudyGuide {
 
   
   
-  static const STUDYGUIDECOLLECTION = 'studyguides';
+  static const STUDYGUIDE_COLLECTION = 'studyguides';
   static const TITLE = 'title';
   static const CREATEDBY = 'createdby';
+  static const CREATEDBYUID = 'createdByUID';
   static const PUBDATE = 'pubdate';
   // question and answer field is to serialize and deserialize the list of notecards without the use of a secondary serialization method
   static const NOTEQUESTIONS = 'notequestions';
