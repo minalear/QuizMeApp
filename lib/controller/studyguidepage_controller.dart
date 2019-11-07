@@ -8,7 +8,7 @@ class StudyGuidePageController {
   void onCardTap(NoteCard card) {
     // Toggle between displaying the question and the answer
     state.setState(() {
-      card.currentDisplayText = (card.currentDisplayText == card.question) ? card.answer : card.question;
+      card.frontFacing = !card.frontFacing;
     });
   }
 }

@@ -28,7 +28,7 @@ class TestData {
       createdBy: "dolson420",
       pubDate: DateTime.now(),
       notes: [
-        NoteCard(question: "What year did the United States earn its independence?", answer: "1776"),
+        NoteCard(question: "What year did the United States earn its independence?  This is a pretty easy question bro, imma throw another one at ya.  What color is the sky on the last Wednesday of 1596?  That is also a pretty easy question my man, so how about this thinker?", answer: "1776 and Blue"),
         NoteCard(question: "What year did the American Civil War start?", answer: "1861"),
         NoteCard(question: "Who was the 27th president?", answer: "William Howard Taft"),
         NoteCard(question: "How long did the Hundred Years' war last?", answer: "116 years"),        

@@ -23,9 +23,9 @@ class StudyGuidePageState extends State<StudyGuidePage> {
   StudyGuidePageState(this.user, this.studyGuide) {
     controller = StudyGuidePageController(this);
 
-    // reset display text of the notecard back to the question
+    // ensure all the notecards are facing the front
     for (var noteCard in studyGuide.notes) {
-      noteCard.currentDisplayText = noteCard.question;
+      noteCard.frontFacing = true;
     }
   }
 
@@ -34,6 +34,10 @@ class StudyGuidePageState extends State<StudyGuidePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Study Guide: ' + studyGuide.title),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){},
       ),
       body: ListView.builder(
         itemCount: studyGuide.notes.length,
@@ -45,13 +49,32 @@ class StudyGuidePageState extends State<StudyGuidePage> {
             child: InkWell(
               onTap: () => controller.onCardTap(noteCard),
               child: Card(
-                color: (noteCard.currentDisplayText == noteCard.question) ? Colors.white : Colors.lightGreenAccent,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: Stack(
+                  fit: StackFit.expand,
                   children: <Widget>[
-                    Text(noteCard.currentDisplayText)
+                    Image.asset(
+                      noteCard.frontFacing ? 'assets/notecard.png' : 'assets/notecard-back.png',
+                      fit: BoxFit.fill,
+                    ),
+                    Center(
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 4),
+                        child: Text(
+                          noteCard.frontFacing ? noteCard.question : noteCard.answer, 
+                          textAlign: TextAlign.center,
+                          style: TextStyle(height: 1),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                elevation: 5,
+                margin: EdgeInsets.all(8),
               ),
             ),
           );

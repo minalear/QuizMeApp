@@ -2,17 +2,17 @@ class NoteCard {
   
   String question;
   String answer;
-  String currentDisplayText;
+  bool frontFacing;
 
   NoteCard({this.question, this.answer}) {
-    currentDisplayText = question;
+    frontFacing = true;
   }
 
   // create an empty notecard
   NoteCard.empty() {
     answer = '';
     question = '';
-    currentDisplayText = '';
+    frontFacing = true;
   }
 
   // check to see if the notecard is empty for saving purposes
