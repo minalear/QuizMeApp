@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 import 'myfirebase.dart';
 import '../view/homepage.dart';
 import '../view/loginpage.dart';
@@ -59,5 +58,6 @@ class HomePageController {
     Navigator.push(state.context, MaterialPageRoute(
       builder: (context) => StudyGuidePage(state.user, StudyGuide.newStudyGuide(state.user, userInput)),
     ));
+    print("We're back here");
   }
 }

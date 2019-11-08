@@ -58,6 +58,8 @@ class LoginPageController {
       );
     }
 
+    user.studyGuides = await MyFirebase.getStudyGuides(user.uid);
+
     PopUp.popProgressBar(state.context);
     Navigator.pop(state.context);
     Navigator.push(state.context, MaterialPageRoute(

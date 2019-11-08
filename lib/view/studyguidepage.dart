@@ -17,6 +17,8 @@ class StudyGuidePage extends StatefulWidget {
 
 class StudyGuidePageState extends State<StudyGuidePage> {
   int noteCardEditIndex = -1;
+  bool changesMade = false;
+
   User user;
   StudyGuide studyGuide;
   StudyGuidePageController controller;
@@ -45,11 +47,18 @@ class StudyGuidePageState extends State<StudyGuidePage> {
       appBar: AppBar(
         title: Text(studyGuide.title),
         actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.import_contacts),
-            label: Text('Study Now'),
-            onPressed: controller.goToStudyMode,
-          ),
+          // display different button based on if changes have been made or not
+          (changesMade) ? 
+            FlatButton.icon(
+              icon: Icon(Icons.save),
+              label: Text('Save'),
+              onPressed: controller.saveChanges,
+            ) :
+            FlatButton.icon(
+              icon: Icon(Icons.import_contacts),
+              label: Text('Study Now'),
+              onPressed: controller.goToStudyMode,
+            ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../controller/homepage_controller.dart';
 import '../model/user.dart';
-import '../model/testdata.dart';
 import '../controller/utilities.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
+
   HomePage(this.user);
 
   @override
@@ -16,7 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  BuildContext context;
   User user;
   HomePageController controller;
   List<int> toDeleteIndices;
@@ -28,9 +27,6 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //print('${user.email} and ${user.username} and ${user.uid}');
-
-    this.context = context;
     return WillPopScope(
       onWillPop: (){ return Future.value(false); },
       child: Scaffold(
@@ -71,8 +67,13 @@ class HomePageState extends State<HomePage> {
           child: Icon(Icons.add),
           onPressed: controller.createNewStudyGuide,
         ),
-        body: ListView.builder(
-          itemCount: TestData.testStudyGuides.length,
+        body: (user.studyGuides == null || user.studyGuides.length == 0) ?
+        Center(
+          child: Text('No study guides found!', textAlign: TextAlign.center)
+        ) 
+        :
+        ListView.builder(
+          itemCount: user.studyGuides.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               padding: EdgeInsets.all(5),
@@ -82,15 +83,15 @@ class HomePageState extends State<HomePage> {
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error_outline),
                 ),
-                title: Text(TestData.testStudyGuides[index].title),
+                title: Text(user.studyGuides[index].title),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('by ' + TestData.testStudyGuides[index].createdBy),
-                    Text(dateTimeFormat(TestData.testStudyGuides[index].pubDate, 'yyyy-MM-dd')),
+                    Text('by ' + user.studyGuides[index].createdBy),
+                    Text(dateTimeFormat(user.studyGuides[index].pubDate, 'yyyy-MM-dd')),
                   ],
                 ),
-                onTap: () => controller.viewStudyGuide(TestData.testStudyGuides[index]),
+                onTap: () => controller.viewStudyGuide(user.studyGuides[index]),
                 onLongPress: (){},
               )
             );

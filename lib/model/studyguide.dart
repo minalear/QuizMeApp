@@ -60,15 +60,15 @@ class StudyGuide {
   }
 
   static StudyGuide deserialize(Map<String, dynamic> data, String docId){
-    List<NoteCard> notes;
+    var notes = List<NoteCard>();
 
-    List<String> questions = data[NOTEQUESTIONS];
-    List<String> answers = data[NOTEANSWERS];
+    var questions = data[NOTEQUESTIONS];
+    var answers = data[NOTEANSWERS];
 
     for (int i = 0; i < questions.length; i++) {
       notes.add(NoteCard(
-        question: questions[i],
-        answer: answers[i],
+        question: questions[i].toString(),
+        answer: answers[i].toString(),
       ));
     }
     
@@ -76,15 +76,14 @@ class StudyGuide {
       title: data[TITLE],
       createdBy: data[CREATEDBY],
       createdByUID: data[CREATEDBYUID],
-      pubDate: data[PUBDATE],
+      //pubDate: DateTime.fromMillisecondsSinceEpoch(data[PUBDATE]),
+      pubDate: DateTime.now(),
       notes: notes,
     );
     studyGuide.documentId = docId;
 
     return studyGuide;
   }
-
-  
   
   static const STUDYGUIDE_COLLECTION = 'studyguides';
   static const TITLE = 'title';

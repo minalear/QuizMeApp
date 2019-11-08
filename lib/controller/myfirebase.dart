@@ -53,10 +53,23 @@ class MyFirebase {
       .document(studyGuide.documentId)
       .setData(studyGuide.serialize());
   }
-
   static Future<StudyGuide> readStudyGuide(String docID) async {
     var doc = await Firestore.instance.collection(StudyGuide.STUDYGUIDE_COLLECTION)
       .document(docID).get();
     return StudyGuide.deserialize(doc.data, docID);
+  }
+  static Future<List<StudyGuide>> getStudyGuides(String userID) async {
+    var query = await Firestore.instance.collection(StudyGuide.STUDYGUIDE_COLLECTION)
+                                .where(StudyGuide.CREATEDBYUID, isEqualTo: userID)
+                                .getDocuments();
+
+    var guideList = <StudyGuide>[];
+    if (query == null || query.documents.length == 0) return guideList;
+
+    for (var guide in query.documents) {
+      guideList.add(StudyGuide.deserialize(guide.data, guide.documentID));
+    }
+
+    return guideList;
   }
 }

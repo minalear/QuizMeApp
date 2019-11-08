@@ -1,5 +1,7 @@
+import 'package:QuizMe/controller/myfirebase.dart';
 import 'package:flutter/material.dart';
 import '../model/notecard.dart';
+import '../model/studyguide.dart';
 import '../view/studyguidepage.dart';
 import '../view/studymodepage.dart';
 
@@ -31,6 +33,7 @@ class StudyGuidePageController {
   }
 
   void saveNoteCardText(String str, int id) {
+    state.changesMade = true;
     if (state.studyGuide.notes[id].frontFacing) {
       state.studyGuide.notes[id].question = str;
     } else {
@@ -38,15 +41,9 @@ class StudyGuidePageController {
     }
   }
 
-  void goToStudyMode() {
-    if (state.studyGuide.notes.length <= 0) return;
-    Navigator.push(state.context, MaterialPageRoute(
-      builder: (context) => StudyModePage(state.studyGuide),
-    ));
-  }
-
   void newNoteCard() {
     state.changeState(() {
+      state.changesMade = true;
       state.studyGuide.notes.add(NoteCard(
         question: '[Question]',
         answer: '[Answer]',
@@ -56,8 +53,35 @@ class StudyGuidePageController {
 
   void deleteNoteCard() {
     state.changeState(() {
+      state.changesMade = true;
       state.studyGuide.notes.removeAt(state.noteCardEditIndex);
       state.noteCardEditIndex = -1;
     });
+  }
+
+  void goToStudyMode() {
+    if (state.studyGuide.notes.length <= 0) return;
+    Navigator.push(state.context, MaterialPageRoute(
+      builder: (context) => StudyModePage(state.studyGuide),
+    ));
+  }
+
+  // When the user presses the save changes button, set changesMade to false
+  void saveChanges() async {
+    state.changeState(() {
+      state.changesMade = false;
+    });
+
+    state.studyGuide.pubDate = DateTime.now();
+    if (state.studyGuide.documentId == null || state.studyGuide.documentId == '') {
+      // save as new
+      var value = await MyFirebase.addStudyGuide(state.studyGuide);
+      state.studyGuide.createdByUID = value;
+    } else {
+      // update study guide
+      await MyFirebase.updateStudyGuide(state.studyGuide);
+    }
+
+    state.user.studyGuides = await MyFirebase.getStudyGuides(state.user.uid);
   }
 }

@@ -1,10 +1,14 @@
+import 'studyguide.dart';
+
 class User {
   String username;
   String email;
   String password;
   String uid;
-  List <String> following;
-  List<String> followers; 
+  List<String> following;
+  List<String> followers;
+
+  List<StudyGuide> studyGuides;
 
   User({
     this.email,
