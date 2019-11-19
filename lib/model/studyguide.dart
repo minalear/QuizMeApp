@@ -1,5 +1,4 @@
 import 'package:QuizMe/model/user.dart';
-
 import '../model/notecard.dart';
 
 class StudyGuide {

@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../controller/homepage_controller.dart';
 import '../model/user.dart';
 import '../controller/utilities.dart';
+import '../view/popup_input.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
@@ -18,7 +19,6 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   User user;
   HomePageController controller;
-  List<int> toDeleteIndices;
 
   HomePageState(User user) {
     this.user = user;
@@ -65,7 +65,7 @@ class HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: controller.createNewStudyGuide,
+          onPressed: controller.createNew, // create a new study guide or quiz
         ),
         body: (user.studyGuides == null || user.studyGuides.length == 0) ?
         Center(
