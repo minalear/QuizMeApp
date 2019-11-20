@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/user.dart';
 import '../model/studyguide.dart';
+import '../model/quiz.dart';
 
 class MyFirebase {
   // Account Handling
@@ -58,7 +59,9 @@ class MyFirebase {
       .document(docID).get();
     return StudyGuide.deserialize(doc.data, docID);
   }
-  static Future<List<StudyGuide>> getStudyGuides(String userID) async {
+
+  // returns a list of study guide created by the given user id
+  static Future<List<StudyGuide>> getUserStudyGuides(String userID) async {
     var query = await Firestore.instance.collection(StudyGuide.STUDYGUIDE_COLLECTION)
                                 .where(StudyGuide.CREATEDBYUID, isEqualTo: userID)
                                 .getDocuments();
@@ -71,5 +74,21 @@ class MyFirebase {
     }
 
     return guideList;
+  }
+
+  // returns a list of quizzes created by the given user id
+  static Future<List<Quiz>> getUserQuizzes(String userID) async {
+    var query = await Firestore.instance.collection(Quiz.QUIZ_COLLECTION)
+                                .where(Quiz.CREATEDBYUID, isEqualTo: userID)
+                                .getDocuments();
+
+    var quizList = <Quiz>[];
+    if (query == null || query.documents.length == 0) return quizList;
+
+    for (var quiz in query.documents) {
+      quizList.add(Quiz.deserialize(quiz.data, quiz.documentID));
+    }
+
+    return quizList;
   }
 }

@@ -88,17 +88,27 @@ class Quiz {
       switch (question[Question.TYPE]) {
         case Question.NORMAL_TYPE: 
           // normal question type
+          var answerList = List<String>();
+          for (var answer in question[Question.ANSWERS]) {
+            answerList.add(answer);
+          }
+
           questions.add(NormalQuestion(
             question: question[Question.QUESTION],
-            answers: question[Question.ANSWERS],
+            answers: answerList,
           ));
           break;
         case Question.IMAGEURI:
           // image question type
+          var answerList = List<String>();
+          for (var answer in question[Question.ANSWERS]) {
+            answerList.add(answer);
+          }
+
           questions.add(ImageQuestion(
             question: question[Question.QUESTION],
             imageUri: question[Question.IMAGEURI],
-            answers: question[Question.ANSWERS],
+            answers: answerList,
           ));
           break;
         case Question.BOOLEAN_TYPE:
@@ -124,7 +134,7 @@ class Quiz {
   
   static const QUIZ_COLLECTION = 'quizzes';
   static const TITLE = 'title';
-  static const CREATEDBY = 'createdby';
+  static const CREATEDBY = 'createdBy';
   static const CREATEDBYUID = 'createdByUID';
   static const PUBDATE = 'pubdate';
   static const QUESTIONS = 'questions';

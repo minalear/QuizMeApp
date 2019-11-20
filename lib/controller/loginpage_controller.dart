@@ -58,7 +58,8 @@ class LoginPageController {
       );
     }
 
-    user.studyGuides = await MyFirebase.getStudyGuides(user.uid);
+    user.studyGuides = await MyFirebase.getUserStudyGuides(user.uid);
+    user.quizzes = await MyFirebase.getUserQuizzes(user.uid);
 
     PopUp.popProgressBar(state.context);
     Navigator.pop(state.context);

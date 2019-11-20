@@ -27,6 +27,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(user.quizzes[0].createdBy);
     return WillPopScope(
       onWillPop: (){ return Future.value(false); },
       child: Scaffold(
@@ -67,13 +68,13 @@ class HomePageState extends State<HomePage> {
           child: Icon(Icons.add),
           onPressed: controller.createNew, // create a new study guide or quiz
         ),
-        body: (user.studyGuides == null || user.studyGuides.length == 0) ?
+        body: (user.quizzes == null || user.quizzes.length == 0) ?
         Center(
-          child: Text('No study guides found!', textAlign: TextAlign.center)
+          child: Text('No quizzes found!', textAlign: TextAlign.center)
         ) 
         :
         ListView.builder(
-          itemCount: user.studyGuides.length,
+          itemCount: user.quizzes.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               padding: EdgeInsets.all(5),
@@ -83,15 +84,15 @@ class HomePageState extends State<HomePage> {
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error_outline),
                 ),
-                title: Text(user.studyGuides[index].title),
+                title: Text(user.quizzes[index].title),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('by ' + user.studyGuides[index].createdBy),
-                    Text(dateTimeFormat(user.studyGuides[index].pubDate, 'yyyy-MM-dd')),
+                    Text('by ' + user.quizzes[index].createdBy),
+                    Text(dateTimeFormat(user.quizzes[index].pubDate, 'yyyy-MM-dd')),
                   ],
                 ),
-                onTap: () => controller.viewStudyGuide(user.studyGuides[index]),
+                //onTap: () => controller.viewStudyGuide(user.quizzes[index]),
                 onLongPress: (){},
               )
             );

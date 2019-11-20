@@ -1,3 +1,4 @@
+import 'quiz.dart';
 import 'studyguide.dart';
 
 class User {
@@ -9,6 +10,7 @@ class User {
   List<String> followers;
 
   List<StudyGuide> studyGuides;
+  List<Quiz> quizzes;
 
   User({
     this.email,

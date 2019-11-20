@@ -82,6 +82,6 @@ class StudyGuidePageController {
       await MyFirebase.updateStudyGuide(state.studyGuide);
     }
 
-    state.user.studyGuides = await MyFirebase.getStudyGuides(state.user.uid);
+    state.user.studyGuides = await MyFirebase.getUserStudyGuides(state.user.uid);
   }
 }

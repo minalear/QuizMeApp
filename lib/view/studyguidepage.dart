@@ -16,13 +16,13 @@ class StudyGuidePage extends StatefulWidget {
 }
 
 class StudyGuidePageState extends State<StudyGuidePage> {
-  int noteCardEditIndex = -1;
-  bool changesMade = false;
-
   User user;
   StudyGuide studyGuide;
   StudyGuidePageController controller;
   var formKey = GlobalKey<FormState>();
+
+  int noteCardEditIndex = -1;
+  bool changesMade = false;
 
   StudyGuidePageState(this.user, this.studyGuide) {
     controller = StudyGuidePageController(this);
