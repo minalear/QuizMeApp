@@ -76,7 +76,7 @@ class StudyGuide {
       createdBy: data[CREATEDBY],
       createdByUID: data[CREATEDBYUID],
       //pubDate: DateTime.fromMillisecondsSinceEpoch(data[PUBDATE]),
-      pubDate: DateTime.now(),
+      pubDate: DateTime.now(), // @TODO: Fix deserialization of the publication date
       notes: notes,
     );
     studyGuide.documentId = docId;

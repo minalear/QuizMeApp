@@ -40,56 +40,92 @@ class Quiz {
   }
 
   Map<String, dynamic> serialize() {
-    List<String> notequestions = new List<String>();
-    List<String> noteanswers = new List<String>();
-    // creating the list of notecard answers and questions 
-    /*for(int n = 0; n < notes.length; n ++ )   {
-      notequestions.add(notes[n].question);
-      noteanswers.add(notes[n].answer);
-    }*/
+    // serializes the questions as an array of maps, 
+    // with each map containing necessary information based on the question type
+    var questionsArray = List<Map<String, dynamic>>();
+    for (int i = 0; i < questions.length; i++) {
+      var map = Map<String, dynamic>();
+      map[Question.TYPE] = questions[i].type;
+      
+      switch (questions[i].type) {
+        case Question.NORMAL_TYPE: 
+          var question = questions[i] as NormalQuestion;
+          map[Question.QUESTION] = question.question;
+          map[Question.ANSWERS] = question.answers;
+
+          break;
+        case Question.IMAGE_TYPE: 
+          var question = questions[i] as ImageQuestion;
+          map[Question.IMAGEURI] = question.imageUri;
+          map[Question.QUESTION] = question.question;
+          map[Question.ANSWERS] = question.answers;
+
+          break;
+        case Question.BOOLEAN_TYPE: 
+          var question = questions[i] as BooleanQuestion;
+          map[Question.QUESTION] = question.question;
+          map[Question.ANSWER] = question.correctAnswer;
+
+          break;
+      }
+
+      questionsArray.add(map);
+    }
     
+    // map of our entire quiz
     return <String, dynamic>{
       TITLE: title,
       CREATEDBY: createdBy,
       CREATEDBYUID: createdByUID,
       PUBDATE: pubDate,
-      NOTEQUESTIONS: notequestions,
-      NOTEANSWERS: noteanswers,
+      QUESTIONS: questionsArray,
     };
   }
 
-  /*static StudyGuide deserialize(Map<String, dynamic> data, String docId){
-    var notes = List<NoteCard>();
-
-    var questions = data[NOTEQUESTIONS];
-    var answers = data[NOTEANSWERS];
-
-    for (int i = 0; i < questions.length; i++) {
-      notes.add(NoteCard(
-        question: questions[i].toString(),
-        answer: answers[i].toString(),
-      ));
+  static Quiz deserialize(Map<String, dynamic> data, String docId){
+    var questions = List<Question>();
+    for (var question in data[QUESTIONS]) {
+      switch (question[Question.TYPE]) {
+        case Question.NORMAL_TYPE: 
+          // normal question type
+          questions.add(NormalQuestion(
+            question: question[Question.QUESTION],
+            answers: question[Question.ANSWERS],
+          ));
+          break;
+        case Question.IMAGEURI:
+          // image question type
+          questions.add(ImageQuestion(
+            question: question[Question.QUESTION],
+            imageUri: question[Question.IMAGEURI],
+            answers: question[Question.ANSWERS],
+          ));
+          break;
+        case Question.BOOLEAN_TYPE:
+          // boolean question type
+          questions.add(BooleanQuestion(
+            question: question[Question.QUESTION],
+            correctAnswer: question[Question.ANSWER],
+          ));
+          break;
+      }
     }
-    
-    var studyGuide = StudyGuide(
+
+    var quiz = Quiz(
       title: data[TITLE],
       createdBy: data[CREATEDBY],
       createdByUID: data[CREATEDBYUID],
-      //pubDate: DateTime.fromMillisecondsSinceEpoch(data[PUBDATE]),
-      pubDate: DateTime.now(),
-      notes: notes,
+      pubDate: DateTime.now(), // @TODO: Fix deserialization of the publication date
+      questions: questions,
     );
-    studyGuide.documentId = docId;
-
-    return studyGuide;
-  }*/
+    quiz.documentId = docId;
+    return quiz;
+  }
   
   static const QUIZ_COLLECTION = 'quizzes';
   static const TITLE = 'title';
   static const CREATEDBY = 'createdby';
   static const CREATEDBYUID = 'createdByUID';
   static const PUBDATE = 'pubdate';
-  // question and answer field is to serialize and deserialize the list of notecards without the use of a secondary serialization method
-  static const NOTEQUESTIONS = 'notequestions';
-  static const NOTEANSWERS = 'noteanswers';
+  static const QUESTIONS = 'questions';
 }
