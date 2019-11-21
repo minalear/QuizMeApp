@@ -28,9 +28,28 @@ class QuizCreatorController {
     var questionType = await showSelectionDialog(state.context, "Question Type", ["Normal", "Image", "True/False"]);
     if (!questionType.item2) return; // user pressed cancel
 
-    /*if (questionType.item1 == "Normal") {
-      var newQuestion = NormalQuestion(question: "")
-    }*/
+    if (questionType.item1 == "Normal") {
+      var newQuestion = NormalQuestion(
+        question: '', 
+        answers: ['','','',''],
+      );
+      state.quiz.questions.add(newQuestion);
+    } else if (questionType.item1 == "True/False") {
+      var newQuestion = BooleanQuestion(
+        question: '',
+        correctAnswer: true,
+      );
+      state.quiz.questions.add(newQuestion);
+    }
+
+    var index = state.quiz.questions.length - 1;
+    var question = state.quiz.questions[index];
+    await Navigator.push(state.context, MaterialPageRoute(
+      builder: (context) => QuestionEditorPage(state.quiz, question, index),
+    ));
+    state.changeState(() {
+      state.changesMade = true;
+    });
   }
 
   void saveChanges() async {
