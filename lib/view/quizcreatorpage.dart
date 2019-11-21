@@ -101,8 +101,8 @@ class QuizCreatorState extends State<QuizCreatorPage> {
             ) :
             FlatButton.icon(
               icon: Icon(Icons.import_contacts),
-              label: Text('Study Now'),
-              onPressed: (){},
+              label: Text('Take Quiz'),
+              onPressed: controller.takeQuiz,
             ),
         ],
       ),

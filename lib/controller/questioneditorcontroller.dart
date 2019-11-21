@@ -37,7 +37,7 @@ class QuestionEditorController {
     state.question = imageQuestion;
     state.quiz.questions[index] = imageQuestion;
   }
-  void saveBooleanAnswer(bool answer, int index) {
+  void saveBooleanAnswer(String answer, int index) {
     state.changeState(() 
     {
       var booleanQuestion = BooleanQuestion.clone(state.question as BooleanQuestion);

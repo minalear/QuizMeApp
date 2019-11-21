@@ -10,6 +10,13 @@ class QuizCreatorController {
   QuizCreatorState state;
   QuizCreatorController(this.state);
 
+  void takeQuiz() {
+    if (state.quiz.questions.length <= 0) return;
+    Navigator.push(state.context, MaterialPageRoute(
+      builder: (context) => QuizTakerPage(state.user, state.quiz),
+    ));
+  }
+
   void onCardTap(Question question) {
     
   }
@@ -37,7 +44,7 @@ class QuizCreatorController {
     } else if (questionType.item1 == "True/False") {
       var newQuestion = BooleanQuestion(
         question: '',
-        correctAnswer: true,
+        correctAnswer: "True",
       );
       state.quiz.questions.add(newQuestion);
     }
@@ -67,5 +74,7 @@ class QuizCreatorController {
       // update quiz
       await MyFirebase.updateQuiz(state.quiz);
     }
+
+    state.user.quizzes = await MyFirebase.getUserQuizzes(state.user.uid);
   }
 }

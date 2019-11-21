@@ -1,4 +1,5 @@
 import 'package:QuizMe/model/user.dart';
+import 'dart:math';
 import '../model/question.dart';
 
 class Quiz {

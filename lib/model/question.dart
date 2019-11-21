@@ -46,7 +46,7 @@ class ImageQuestion extends Question {
 
 class BooleanQuestion extends Question {
   String question;
-  bool correctAnswer; // might make string?
+  String correctAnswer;
 
   BooleanQuestion({this.question, this.correctAnswer}) {
     type = Question.BOOLEAN_TYPE;
