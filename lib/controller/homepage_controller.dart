@@ -33,6 +33,12 @@ class HomePageController {
     ));
   }
 
+  void viewQuiz(Quiz quiz) {
+    Navigator.push(state.context, MaterialPageRoute(
+      builder: (context) => QuizCreatorPage(state.user, quiz),
+    ));
+  }
+
   void createNew() async {
     // get the content type from the user
     var contentType = await showSelectionDialog(state.context, "Quiz or Study Guide?", ["Quiz", "Study Guide"]);

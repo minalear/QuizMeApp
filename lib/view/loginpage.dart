@@ -76,10 +76,10 @@ class LoginPageState extends State<LoginPage> {
                   ),
                   // InkWell allows us to create clickable text
                   InkWell(
-                    // RichText widget allows us to style text in creative ways
                     onTap: (){ controller.createAccount(); },
                     child: Container(
                       padding: EdgeInsets.all(8),
+                      // RichText widget allows us to style text in creative ways
                       child: RichText(
                         text: TextSpan(
                           children: [

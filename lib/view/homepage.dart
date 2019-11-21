@@ -93,6 +93,7 @@ class HomePageState extends State<HomePage> {
                   ],
                 ),
                 //onTap: () => controller.viewStudyGuide(user.quizzes[index]),
+                onTap: () => controller.viewQuiz(user.quizzes[index]),
                 onLongPress: (){},
               )
             );

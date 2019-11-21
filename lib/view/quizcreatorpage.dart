@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../model/user.dart';
 import '../model/quiz.dart';
+import '../model/question.dart';
 import '../controller/quizcreatorcontroller.dart';
 
 class QuizCreatorPage extends StatefulWidget {
@@ -26,6 +27,11 @@ class QuizCreatorState extends State<QuizCreatorPage> {
     this.user = user;
     this.quiz = quiz;
     controller = QuizCreatorController(this);
+
+    // ensure all the questions are facing the front
+    for (var question in quiz.questions) {
+      question.isFrontFacing = true;
+    }
   }
 
   void changeState(Function fn) {
@@ -34,6 +40,56 @@ class QuizCreatorState extends State<QuizCreatorPage> {
 
   bool editMode() {
     return false;
+  }
+
+  // construct a widget based on the question
+  Widget constructQuestionCard(Question question, int index) {
+    var cardText = List<InlineSpan>();
+    index += 1; // index is 0 based
+
+    if (question.type == Question.NORMAL_TYPE) {
+      // question
+      cardText.add(
+        TextSpan(
+          text: index.toString() + ') ' + (question as NormalQuestion).question + '\n\n',
+          style: TextStyle(color: Colors.black)
+        ),
+      );
+
+      // list of answers, highlight the correct answer in green
+      int count = 0;
+      (question as NormalQuestion).answers.forEach((v) {  
+        cardText.add(
+          TextSpan(
+            text: v + '\n',
+            style: TextStyle(color: (count++ == 0) ? Colors.green : Colors.black),
+          ),
+        );
+      });
+    } else if (question.type == Question.BOOLEAN_TYPE) {
+      // question
+      cardText.add(
+        TextSpan(
+          text: index.toString() + ') ' + (question as BooleanQuestion).question + '\n\n',
+          style: TextStyle(color: Colors.black)
+        ),
+      );
+
+      // answer
+      cardText.add(
+        TextSpan(
+          text: (question as BooleanQuestion).correctAnswer.toString(), 
+          style: TextStyle(color: Colors.green)
+        ),
+      );
+    }
+
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(bottom: 4),
+        child: RichText(text: TextSpan(children: cardText)),
+      ),
+    );
   }
 
   @override
@@ -46,7 +102,7 @@ class QuizCreatorState extends State<QuizCreatorPage> {
             FlatButton.icon(
               icon: Icon(Icons.save),
               label: Text('Save'),
-              onPressed: (){},
+              onPressed: controller.saveChanges,
             ) :
             FlatButton.icon(
               icon: Icon(Icons.import_contacts),
@@ -67,10 +123,10 @@ class QuizCreatorState extends State<QuizCreatorPage> {
             var question = quiz.questions[index];
             return SizedBox(
               width: double.infinity,
-              height: 200,
+              height: 175,
               child: InkWell(
-                onTap: (){},
-                onLongPress: (){},
+                onTap: () => controller.onCardTap(question),
+                onLongPress: () => controller.onCardLongPress(question),
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   shape: RoundedRectangleBorder(
@@ -81,10 +137,8 @@ class QuizCreatorState extends State<QuizCreatorPage> {
                   child: Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
-                      Image.asset('assets/notecard.png', fit: BoxFit.fill),
-                      Center(
-                        child: Text(question.type),
-                      )
+                      //Image.asset('assets/notecard.png', fit: BoxFit.fill),
+                      constructQuestionCard(question, index),
                     ],
                   ),
                 ),

@@ -1,10 +1,6 @@
 class Question {
   String type;
-
-  // The correct answer will be set as the first possible answer
-  /*String get correctAnswer { 
-    return answers[0];
-  }*/
+  bool isFrontFacing = false; // used for visual
 
   // serialization values
   static const NORMAL_TYPE = "normal";
