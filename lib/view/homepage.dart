@@ -27,7 +27,6 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(user.quizzes[0].createdBy);
     return WillPopScope(
       onWillPop: (){ return Future.value(false); },
       child: Scaffold(

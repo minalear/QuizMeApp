@@ -44,16 +44,26 @@ Future<Tuple2<String, bool>> showSelectionDialog(BuildContext context, String ti
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(title),
-        content: new Container(
-          child: ListView.builder(
-            itemCount: options.length,
-            itemBuilder: (BuildContext context, int id) {
-              return RaisedButton(
-                child: Text(options[id]),
-                onPressed: () => Navigator.of(context).pop(Tuple2<String, bool>(options[id], true)),
-              );
-            }
-          )
+        content: SizedBox(
+          width: 250,
+          height: 200,
+          child: Container(
+            margin: EdgeInsets.all(8),
+            child: ListView.builder(
+              shrinkWrap: false,
+              itemCount: options.length,
+              itemBuilder: (BuildContext context, int id) {
+                return Row(
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text(options[id]),
+                      onPressed: () => Navigator.of(context).pop(Tuple2<String, bool>(options[id], true)),
+                    ),
+                  ],
+                );
+              }
+            ),
+          ),
         ),
         actions: <Widget>[
           RaisedButton(
