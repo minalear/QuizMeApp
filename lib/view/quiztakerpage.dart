@@ -63,7 +63,7 @@ class QuizTakerState extends State<QuizTakerPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              userScore.toString() + '%', 
+              userScore.toStringAsFixed(2) + '%', 
               style: TextStyle(fontSize: 45, color: (userScore > 51) ? Colors.green : Colors.red)
             )
           ],

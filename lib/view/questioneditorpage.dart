@@ -123,7 +123,7 @@ class QuestionEditorState extends State<QuestionEditorPage> {
                     Row(children: <Widget>[
                       Text('True: '),
                       Radio(
-                        value: true,
+                        value: "True",
                         groupValue: boolean.correctAnswer,
                         onChanged: (v) => controller.saveBooleanAnswer(v, index),
                       ),
@@ -131,7 +131,7 @@ class QuestionEditorState extends State<QuestionEditorPage> {
                     Row(children: <Widget>[
                       Text('False: '),
                       Radio(
-                        value: false,
+                        value: "False",
                         groupValue: boolean.correctAnswer,
                         onChanged: (v) => controller.saveBooleanAnswer(v, index),
                       )
