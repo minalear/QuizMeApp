@@ -101,7 +101,7 @@ class StudyGuidePageState extends State<StudyGuidePage> {
                               autocorrect: true,
                               keyboardType: TextInputType.multiline,
                               onSaved: (str) => controller.saveNoteCardText(str, index),   
-                              validator: (a) { return null; },                    
+                              validator: (a) { return null; }, // @TODO: Perform proper form validation
                             ) : 
                             Text(
                               noteCard.frontFacing ? noteCard.question : noteCard.answer, 

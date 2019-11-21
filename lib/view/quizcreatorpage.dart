@@ -27,11 +27,6 @@ class QuizCreatorState extends State<QuizCreatorPage> {
     this.user = user;
     this.quiz = quiz;
     controller = QuizCreatorController(this);
-
-    // ensure all the questions are facing the front
-    for (var question in quiz.questions) {
-      question.isFrontFacing = true;
-    }
   }
 
   void changeState(Function fn) {
@@ -113,7 +108,7 @@ class QuizCreatorState extends State<QuizCreatorPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: editMode() ? Icon(Icons.delete_outline) : Icon(Icons.add),
-        onPressed: (){},
+        onPressed: controller.addNewQuestion,
       ),
       body: Form(
         key: formKey,
@@ -126,7 +121,7 @@ class QuizCreatorState extends State<QuizCreatorPage> {
               height: 175,
               child: InkWell(
                 onTap: () => controller.onCardTap(question),
-                onLongPress: () => controller.onCardLongPress(question),
+                onLongPress: () => controller.onCardLongPress(question, index),
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   shape: RoundedRectangleBorder(
