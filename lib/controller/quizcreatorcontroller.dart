@@ -17,16 +17,18 @@ class QuizCreatorController {
     ));
   }
 
-  void onCardTap(Question question) {
-    
-  }
-
-  void onCardLongPress(Question question, int index) async {
+  void onCardTap(Question question, int index) async {
     await Navigator.push(state.context, MaterialPageRoute(
       builder: (context) => QuestionEditorPage(state.quiz, question, index),
     ));
     state.changeState(() {
       state.changesMade = true;
+    });
+  }
+
+  void onCardLongPress(Question question, int index) async {
+    state.changeState(() {
+      state.toDeleteIndex = (state.toDeleteIndex == index) ? -1 : index;
     });
   }
 
@@ -56,6 +58,14 @@ class QuizCreatorController {
     ));
     state.changeState(() {
       state.changesMade = true;
+    });
+  }
+
+  void deleteQuestion() {
+    state.changeState(() {
+      state.changesMade = true;    
+      state.quiz.questions.removeAt(state.toDeleteIndex);
+      state.toDeleteIndex = -1;
     });
   }
 

@@ -22,6 +22,7 @@ class QuizCreatorState extends State<QuizCreatorPage> {
   var formKey = GlobalKey<FormState>();
 
   bool changesMade = false; // changes made to the quiz that need to be saved
+  int toDeleteIndex = -1;
   
   QuizCreatorState(User user, Quiz quiz) {
     this.user = user;
@@ -34,7 +35,7 @@ class QuizCreatorState extends State<QuizCreatorPage> {
   }
 
   bool editMode() {
-    return false;
+    return toDeleteIndex != -1;
   }
 
   // construct a widget based on the question
@@ -108,7 +109,7 @@ class QuizCreatorState extends State<QuizCreatorPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: editMode() ? Icon(Icons.delete_outline) : Icon(Icons.add),
-        onPressed: controller.addNewQuestion,
+        onPressed: editMode() ? controller.deleteQuestion : controller.addNewQuestion,
       ),
       body: Form(
         key: formKey,
@@ -120,9 +121,10 @@ class QuizCreatorState extends State<QuizCreatorPage> {
               width: double.infinity,
               height: 175,
               child: InkWell(
-                onTap: () => controller.onCardTap(question),
+                onTap: () => controller.onCardTap(question, index),
                 onLongPress: () => controller.onCardLongPress(question, index),
                 child: Card(
+                  color: (index == toDeleteIndex) ? Colors.redAccent : Colors.white,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),

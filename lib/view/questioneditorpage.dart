@@ -50,7 +50,20 @@ class QuestionEditorState extends State<QuestionEditorPage> {
           validator: (a) { return null; } // @TODO: Perform proper form validation
         );
 
-        for (int i = 0; i < 4; i++) {
+        // correct answer field
+        formFields.add(TextFormField(
+          autocorrect: true,
+            initialValue: normal.answers[0],
+            keyboardType: TextInputType.multiline,
+            onSaved: (v) => controller.saveNormalAnswer(v, index, 0),
+            validator: (a) { return null; }, // @TODO: Perform proper form validation
+            style: TextStyle(color: Colors.green),
+            decoration: InputDecoration(
+              hintText: "This should be the correct answer."
+            ),
+        ));
+
+        for (int i = 1; i < 4; i++) {
           formFields.add(TextFormField(
             autocorrect: true,
             initialValue: normal.answers[i],
