@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import '../view/quizcreatorpage.dart';
 import '../view/quiztakerpage.dart';
-import 'package:flutter/material.dart';
+import '../controller/myfirebase.dart';
 import '../view/questioneditorpage.dart';
 import '../model/question.dart';
 import '../view/popup_input.dart';
@@ -14,11 +15,12 @@ class QuizCreatorController {
   }
 
   void onCardLongPress(Question question, int index) async {
-    var updatedQuestion = await Navigator.push(state.context, MaterialPageRoute(
+    await Navigator.push(state.context, MaterialPageRoute(
       builder: (context) => QuestionEditorPage(state.quiz, question, index),
     ));
-    //state.quiz.questions[index] = updatedQuestion;
-    print((updatedQuestion as NormalQuestion).question);
+    state.changeState(() {
+      state.changesMade = true;
+    });
   }
 
   void addNewQuestion() async {
@@ -32,6 +34,19 @@ class QuizCreatorController {
   }
 
   void saveChanges() async {
+    state.changeState(() {
+      state.changesMade = false;
+    });
 
+    state.quiz.pubDate = DateTime.now();
+    if (state.quiz.documentId == null || state.quiz.documentId == '') {
+      // save as new
+      var value = await MyFirebase.addQuiz(state.quiz);
+      state.quiz.documentId = value;
+      state.quiz.createdByUID = state.user.uid;
+    } else {
+      // update quiz
+      await MyFirebase.updateQuiz(state.quiz);
+    }
   }
 }

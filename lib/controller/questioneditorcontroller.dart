@@ -13,10 +13,38 @@ class QuestionEditorController {
       state.question = normalQuestion;
       state.quiz.questions[state.index] = normalQuestion;
     } else if (state.question.type == Question.BOOLEAN_TYPE) {
-      state.question = BooleanQuestion.clone(state.question as BooleanQuestion);
+      var booleanQuestion = BooleanQuestion.clone(state.question as BooleanQuestion);
+      booleanQuestion.question = str;
+      state.question = booleanQuestion;
+      state.quiz.questions[state.index] = booleanQuestion;
     } else {
-      state.question = ImageQuestion.clone(state.question as ImageQuestion);
+      var imageQuestion = ImageQuestion.clone(state.question as ImageQuestion);
+      imageQuestion.question = str;
+      state.question = imageQuestion;
+      state.quiz.questions[state.index] = imageQuestion;
     }
+  }
+
+  void saveNormalAnswer(String str, int index, int ansIndex) {
+    var normalQuestion = NormalQuestion.clone(state.question as NormalQuestion);
+    normalQuestion.answers[ansIndex] = str;
+    state.question = normalQuestion;
+    state.quiz.questions[index] = normalQuestion;
+  }
+  void saveImageAnswer(String str, int index, int ansIndex) {
+    var imageQuestion = ImageQuestion.clone(state.question as ImageQuestion);
+    imageQuestion.answers[ansIndex] = str;
+    state.question = imageQuestion;
+    state.quiz.questions[index] = imageQuestion;
+  }
+  void saveBooleanAnswer(bool answer, int index) {
+    state.changeState(() 
+    {
+      var booleanQuestion = BooleanQuestion.clone(state.question as BooleanQuestion);
+      booleanQuestion.correctAnswer = answer;
+      state.question = booleanQuestion;
+      state.quiz.questions[index] = booleanQuestion;
+    });
   }
 
   void saveChanges() async {

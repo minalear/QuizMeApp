@@ -28,7 +28,7 @@ class QuestionEditorState extends State<QuestionEditorPage> {
     this.quiz = quiz;
     this.question = question;
     this.index = index;
-    
+
     controller = QuestionEditorController(this);
   }
 
@@ -55,7 +55,7 @@ class QuestionEditorState extends State<QuestionEditorPage> {
             autocorrect: true,
             initialValue: normal.answers[i],
             keyboardType: TextInputType.multiline,
-            onSaved: (v) {},
+            onSaved: (v) => controller.saveNormalAnswer(v, index, i),
             validator: (a) { return null; } // @TODO: Perform proper form validation
           ));
         }
@@ -76,6 +76,53 @@ class QuestionEditorState extends State<QuestionEditorPage> {
                     formFields[1],
                     formFields[2],
                     formFields[3],
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+      break;
+      case Question.BOOLEAN_TYPE: {
+        var boolean = question as BooleanQuestion;
+
+        var questionField = TextFormField(
+          autocorrect: true,
+          initialValue: boolean.question,
+          keyboardType: TextInputType.multiline,
+          onSaved: controller.saveQuestion,
+          validator: (a) { return null; } // @TODO: Perform proper form validation
+        );
+
+        return Container(
+          child: SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: Card(
+              margin: EdgeInsets.all(8),
+              child: Container(
+                margin: EdgeInsets.all(8),
+                child: Column(
+                  children: <Widget>[
+                    questionField, // question
+                    Divider(),
+                    Row(children: <Widget>[
+                      Text('True: '),
+                      Radio(
+                        value: true,
+                        groupValue: boolean.correctAnswer,
+                        onChanged: (v) => controller.saveBooleanAnswer(v, index),
+                      ),
+                    ]),
+                    Row(children: <Widget>[
+                      Text('False: '),
+                      Radio(
+                        value: false,
+                        groupValue: boolean.correctAnswer,
+                        onChanged: (v) => controller.saveBooleanAnswer(v, index),
+                      )
+                    ])
                   ],
                 ),
               ),

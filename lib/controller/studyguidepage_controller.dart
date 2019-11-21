@@ -76,7 +76,8 @@ class StudyGuidePageController {
     if (state.studyGuide.documentId == null || state.studyGuide.documentId == '') {
       // save as new
       var value = await MyFirebase.addStudyGuide(state.studyGuide);
-      state.studyGuide.createdByUID = value;
+      state.studyGuide.documentId = value;
+      state.studyGuide.createdByUID = state.user.uid;
     } else {
       // update study guide
       await MyFirebase.updateStudyGuide(state.studyGuide);

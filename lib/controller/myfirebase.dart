@@ -76,6 +76,18 @@ class MyFirebase {
     return guideList;
   }
 
+  // quiz handling
+  static Future<String> addQuiz(Quiz quiz) async {
+    var ref = await Firestore.instance.collection(Quiz.QUIZ_COLLECTION)
+      .add(quiz.serialize());
+    return ref.documentID;
+  }
+  static Future<void> updateQuiz(Quiz quiz) async {
+    await Firestore.instance.collection(Quiz.QUIZ_COLLECTION)
+      .document(quiz.documentId)
+      .setData(quiz.serialize());
+  }
+
   // returns a list of quizzes created by the given user id
   static Future<List<Quiz>> getUserQuizzes(String userID) async {
     var query = await Firestore.instance.collection(Quiz.QUIZ_COLLECTION)
