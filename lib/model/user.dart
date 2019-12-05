@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'quiz.dart';
 import 'studyguide.dart';
 
@@ -6,6 +7,7 @@ class User {
   String email;
   String password;
   String uid;
+  NetworkImage profileImage;
   List<String> following;
   List<String> followers;
 

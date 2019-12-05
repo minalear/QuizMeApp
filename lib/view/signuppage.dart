@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../controller/signuppage_controller.dart';
 import '../controller/validator.dart';
+import 'dart:io';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -12,6 +13,8 @@ class SignUpPage extends StatefulWidget {
 class SignUpPageState extends State<SignUpPage> {
   SignUpPageController controller;
   var formKey = GlobalKey<FormState>();
+  File profileImage;
+  bool profileImageSet = false;
 
   SignUpPageState() {
     controller = SignUpPageController(this);
@@ -27,7 +30,18 @@ class SignUpPageState extends State<SignUpPage> {
       body: Form (
         key: formKey,
         child: ListView(
+          shrinkWrap: true,
           children: <Widget>[
+            Container(
+              height: 175,
+              child: profileImageSet ? 
+                Image.file(profileImage, width: 250, height: 175) :
+                Image.asset('assets/default_profile.jpg'),
+            ),
+            RaisedButton(
+              child: Text('Upload Profile Image'),
+              onPressed: controller.uploadProfileImage,
+            ),
             TextFormField( 
               initialValue: '',
               autocorrect:  false,

@@ -16,13 +16,13 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CachedNetworkImage(
-              imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHkxm4rKAN-JerP0Nbo9m698yZoRuvJpATZjo2WQc8L3Z_sGsW&s',
+            /*CachedNetworkImage(
+              imageUrl: user.profileImageUri,
               placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => Icon(Icons.error_outline, size: 250),
               width: 250,
               height: 250,
-            ),
+            ),*/
             Container(
               child: Text(user.username, style: TextStyle(fontSize: 35)),
               padding: EdgeInsets.only(top: 10),

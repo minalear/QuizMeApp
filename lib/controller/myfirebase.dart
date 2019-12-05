@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import '../model/user.dart';
 import '../model/studyguide.dart';
 import '../model/quiz.dart';
@@ -41,6 +44,20 @@ class MyFirebase {
     await Firestore.instance.collection(User.PROFILE_COLLECTION)
       .document(user.uid)
       .setData(user.serialize());
+  }
+
+  // Image Handling
+  static Future<String> uploadProfileImage(File image, String uid) async {
+    var ref = FirebaseStorage.instance.ref().child("profile_image/" + uid);
+    var task = ref.putFile(image);
+    var snapshot = await task.onComplete;
+    return snapshot.ref.getDownloadURL().toString();
+  }
+  static Future<NetworkImage> getProfileImage(String uid) async {
+    var ref = FirebaseStorage.instance.ref().child("profile_image/" + uid);
+    var uri = (await ref.getDownloadURL()).toString();
+    print("URI ===> " + uri);
+    return NetworkImage(uri);
   }
 
   // Study Guide Handling

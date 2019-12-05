@@ -39,11 +39,12 @@ class HomePageState extends State<HomePage> {
               UserAccountsDrawerHeader(
                 accountName: Text(user.username),
                 accountEmail: Text(user.email),
-                currentAccountPicture: CachedNetworkImage(
-                  imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHkxm4rKAN-JerP0Nbo9m698yZoRuvJpATZjo2WQc8L3Z_sGsW&s',
+                currentAccountPicture: /*CachedNetworkImage(
+                  imageUrl: user.profileImageUri,
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error_outline),
-                ),
+                ),*/
+                Image(image: user.profileImage)
               ),
               ListTile(
                 leading: Icon(Icons.person),
@@ -67,11 +68,11 @@ class HomePageState extends State<HomePage> {
           child: Icon(Icons.add),
           onPressed: controller.createNew, // create a new study guide or quiz
         ),
-        body: (user.quizzes == null || user.quizzes.length == 0) ?
+        body: //(user.quizzes == null || user.quizzes.length == 0) ?
         Center(
           child: Text('No quizzes found!', textAlign: TextAlign.center)
         ) 
-        :
+        /*:
         ListView.builder(
           itemCount: user.quizzes.length,
           itemBuilder: (BuildContext context, int index) {
@@ -97,7 +98,7 @@ class HomePageState extends State<HomePage> {
               )
             );
           },
-        ),
+        ),*/
       )
     );
   }
