@@ -46,7 +46,7 @@ class LoginPageController {
     // Login success => Read user profile
     try {
       user = await MyFirebase.readProfile(user.uid);
-      user.profileImage = await MyFirebase.getProfileImage(user.uid);
+      user.profileImageUri = await MyFirebase.getProfileImage(user.uid);
     } catch (e) {
       PopUp.info(
         context: state.context,

@@ -39,12 +39,11 @@ class HomePageState extends State<HomePage> {
               UserAccountsDrawerHeader(
                 accountName: Text(user.username),
                 accountEmail: Text(user.email),
-                currentAccountPicture: /*CachedNetworkImage(
+                currentAccountPicture: CachedNetworkImage(
                   imageUrl: user.profileImageUri,
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error_outline),
-                ),*/
-                Image(image: user.profileImage)
+                ),
               ),
               ListTile(
                 leading: Icon(Icons.person),

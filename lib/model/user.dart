@@ -7,7 +7,7 @@ class User {
   String email;
   String password;
   String uid;
-  NetworkImage profileImage;
+  String profileImageUri;
   List<String> following;
   List<String> followers;
 

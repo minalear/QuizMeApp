@@ -61,7 +61,7 @@ class SignUpPageController {
     try {
       if (state.profileImageSet) {
         MyFirebase.uploadProfileImage(state.profileImage, user.uid);
-        user.profileImage = await MyFirebase.getProfileImage(user.uid);
+        user.profileImageUri = await MyFirebase.getProfileImage(user.uid);
       }
     } catch(e) {}
 

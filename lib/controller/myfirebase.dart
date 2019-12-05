@@ -47,17 +47,15 @@ class MyFirebase {
   }
 
   // Image Handling
-  static Future<String> uploadProfileImage(File image, String uid) async {
+  static void uploadProfileImage(File image, String uid) async {
     var ref = FirebaseStorage.instance.ref().child("profile_image/" + uid);
     var task = ref.putFile(image);
-    var snapshot = await task.onComplete;
-    return snapshot.ref.getDownloadURL().toString();
+    await task.onComplete;
   }
-  static Future<NetworkImage> getProfileImage(String uid) async {
+  static Future<String> getProfileImage(String uid) async {
     var ref = FirebaseStorage.instance.ref().child("profile_image/" + uid);
     var uri = (await ref.getDownloadURL()).toString();
-    print("URI ===> " + uri);
-    return NetworkImage(uri);
+    return uri;
   }
 
   // Study Guide Handling
