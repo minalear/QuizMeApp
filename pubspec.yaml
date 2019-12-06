@@ -55,6 +55,7 @@ flutter:
     - assets/notecard-back.png
     - assets/default_profile.jpg
     - assets/quiz_icon.png
+    - assets/user_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

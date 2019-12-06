@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../controller/homepage_controller.dart';
 import '../model/user.dart';
+import '../controller/myfirebase.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
@@ -18,9 +19,16 @@ class HomePageState extends State<HomePage> {
   User user;
   HomePageController controller;
 
+  List<Map<String, dynamic>> recentActivityList;
+
   HomePageState(User user) {
     this.user = user;
     controller = HomePageController(this);
+    controller.loadRecentActivity();
+  }
+
+  void changeState(Function fn) {
+    setState(fn);
   }
 
   @override
@@ -65,37 +73,25 @@ class HomePageState extends State<HomePage> {
           child: Icon(Icons.add),
           onPressed: controller.createNew, // create a new study guide or quiz
         ),
-        body: //(user.quizzes == null || user.quizzes.length == 0) ?
+        body: (recentActivityList == null || recentActivityList.length == 0) ?
         Center(
-          child: Text('No quizzes found!', textAlign: TextAlign.center)
+          child: Text('No activity found!', textAlign: TextAlign.center)
         ) 
-        /*:
+        :
         ListView.builder(
-          itemCount: user.quizzes.length,
+          itemCount: recentActivityList.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               padding: EdgeInsets.all(5),
               child: ListTile(
-                leading: CachedNetworkImage(
-                  imageUrl: 'http://meganandtimmy.com/wp-content/uploads/2012/03/tan-index-card-hi.png',
-                  placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error_outline),
-                ),
-                title: Text(user.quizzes[index].title),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('by ' + user.quizzes[index].createdBy),
-                    Text(dateTimeFormat(user.quizzes[index].pubDate, 'yyyy-MM-dd')),
-                  ],
-                ),
-                //onTap: () => controller.viewStudyGuide(user.quizzes[index]),
-                onTap: () => controller.viewQuiz(user.quizzes[index]),
+                leading: Image.asset('assets/user_icon.png'),
+                title: Text(recentActivityList[index]["activity"]),
+                onTap: (){},
                 onLongPress: (){},
               )
             );
           },
-        ),*/
+        ),
       )
     );
   }

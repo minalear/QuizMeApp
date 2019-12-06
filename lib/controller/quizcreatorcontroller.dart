@@ -80,6 +80,7 @@ class QuizCreatorController {
       var value = await MyFirebase.addQuiz(state.quiz);
       state.quiz.documentId = value;
       state.quiz.createdByUID = state.user.uid;
+      MyFirebase.addToRecentActivityList(state.user, " recently created a new quiz titled " + state.quiz.title + "!");
     } else {
       // update quiz
       await MyFirebase.updateQuiz(state.quiz);

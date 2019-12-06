@@ -78,6 +78,7 @@ class StudyGuidePageController {
       var value = await MyFirebase.addStudyGuide(state.studyGuide);
       state.studyGuide.documentId = value;
       state.studyGuide.createdByUID = state.user.uid;
+      MyFirebase.addToRecentActivityList(state.user, " recently created a new study guide titled " + state.studyGuide.title + "!");
     } else {
       // update study guide
       await MyFirebase.updateStudyGuide(state.studyGuide);

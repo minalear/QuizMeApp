@@ -118,4 +118,34 @@ class MyFirebase {
 
     return quizList;
   }
+
+  // recent activity handling
+  static void addToRecentActivityList(User user, String activity) async {
+    var activityList = await getRecentActivityList();
+
+    var newActivity = Map<String, dynamic>();
+    newActivity["activity"] = user.username + " " + activity;
+    newActivity["user"] = user.uid;
+    activityList.insert(0, newActivity);
+
+    var updateField = Map<String, dynamic>();
+    updateField["activity-list"] = activityList;
+    Firestore.instance.collection("meta").document("recent-activity").setData(updateField);
+  }
+
+  static Future<List<Map<String, dynamic>>> getRecentActivityList() async {
+    var query = await Firestore.instance.collection("meta")
+                               .document("recent-activity").get();
+    var data = query.data["activity-list"];
+
+    var activityList = List<Map<String, dynamic>>();
+    for (var activity in data) {
+      var newMap = Map<String, dynamic>();
+      newMap["user"] = activity["user"];
+      newMap["activity"] = activity["activity"];
+      activityList.add(newMap);
+    }
+
+    return activityList;
+  }
 }

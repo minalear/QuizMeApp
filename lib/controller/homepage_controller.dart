@@ -39,6 +39,20 @@ class HomePageController {
     ));
   }
 
+  void voidUserProfile(String uid) async {
+
+  }
+
+  void loadRecentActivity() async {
+    if (state.recentActivityList == null) {
+      MyFirebase.getRecentActivityList().then((value) {
+        state.changeState((){
+          state.recentActivityList = value;
+        });
+      });
+    }
+  }
+
   void createNew() async {
     // get the content type from the user
     var contentType = await showSelectionDialog(state.context, "Quiz or Study Guide?", ["Quiz", "Study Guide"]);
