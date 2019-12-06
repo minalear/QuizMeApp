@@ -46,7 +46,6 @@ class LoginPageController {
     // Login success => Read user profile
     try {
       user = await MyFirebase.readProfile(user.uid);
-      user.profileImageUri = await MyFirebase.getProfileImage(user.uid);
     } catch (e) {
       PopUp.info(
         context: state.context,
@@ -59,6 +58,11 @@ class LoginPageController {
       );
     }
 
+    try {
+      user.profileImageUri = await MyFirebase.getProfileImage(user.uid);
+    } catch (e) {
+      user.profileImageUri = "https://firebasestorage.googleapis.com/v0/b/quizme-a8f22.appspot.com/o/profile_image%2Fdefault_profile.jpg?alt=media&token=83f0d3b8-3d09-4e6b-bc68-d11d045d6c9c";
+    }
     user.studyGuides = await MyFirebase.getUserStudyGuides(user.uid);
     user.quizzes = await MyFirebase.getUserQuizzes(user.uid);
 

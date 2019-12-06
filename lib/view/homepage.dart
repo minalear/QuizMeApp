@@ -40,7 +40,7 @@ class HomePageState extends State<HomePage> {
                 accountName: Text(user.username),
                 accountEmail: Text(user.email),
                 currentAccountPicture: CachedNetworkImage(
-                  imageUrl: user.profileImageUri,
+                  imageUrl: (user.profileImageUri == null) ? "" : user.profileImageUri,
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error_outline),
                 ),

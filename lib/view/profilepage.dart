@@ -17,7 +17,7 @@ class ProfilePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CachedNetworkImage(
-              imageUrl: user.profileImageUri,
+              imageUrl: (user.profileImageUri == null) ? "" : user.profileImageUri,
               placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => Icon(Icons.error_outline, size: 250),
               width: 250,
