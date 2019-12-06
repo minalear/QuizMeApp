@@ -55,13 +55,11 @@ class HomePageController {
   }
 
   void loadRecentActivity() async {
-    if (state.recentActivityList == null) {
-      MyFirebase.getRecentActivityList().then((value) {
-        state.changeState((){
-          state.recentActivityList = value;
-        });
+    MyFirebase.getRecentActivityList().then((value) {
+      state.changeState((){
+        state.recentActivityList = value;
       });
-    }
+    });
   }
 
   void createNew() async {

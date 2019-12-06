@@ -33,6 +33,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    controller.loadRecentActivity();
     return WillPopScope(
       onWillPop: (){ return Future.value(false); },
       child: Scaffold(
