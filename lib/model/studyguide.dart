@@ -1,4 +1,5 @@
 import 'package:QuizMe/model/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/notecard.dart';
 
 class StudyGuide {
@@ -75,8 +76,7 @@ class StudyGuide {
       title: data[TITLE],
       createdBy: data[CREATEDBY],
       createdByUID: data[CREATEDBYUID],
-      //pubDate: DateTime.fromMillisecondsSinceEpoch(data[PUBDATE]),
-      pubDate: DateTime.now(), // @TODO: Fix deserialization of the publication date
+      pubDate: DateTime.fromMicrosecondsSinceEpoch((data[PUBDATE] as Timestamp).microsecondsSinceEpoch),
       notes: notes,
     );
     studyGuide.documentId = docId;

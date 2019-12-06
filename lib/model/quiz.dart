@@ -1,5 +1,5 @@
 import 'package:QuizMe/model/user.dart';
-import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/question.dart';
 
 class Quiz {
@@ -126,7 +126,7 @@ class Quiz {
       title: data[TITLE],
       createdBy: data[CREATEDBY],
       createdByUID: data[CREATEDBYUID],
-      pubDate: DateTime.now(), // @TODO: Fix deserialization of the publication date
+      pubDate: DateTime.fromMicrosecondsSinceEpoch((data[PUBDATE] as Timestamp).microsecondsSinceEpoch),
       questions: questions,
     );
     quiz.documentId = docId;

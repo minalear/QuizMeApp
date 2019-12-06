@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../controller/homepage_controller.dart';
 import '../model/user.dart';
-import '../controller/utilities.dart';
-import '../view/popup_input.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
