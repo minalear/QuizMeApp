@@ -38,7 +38,7 @@ class HomePageState extends State<HomePage> {
       onWillPop: (){ return Future.value(false); },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('User Home'),
+          title: Text('Recent App Activity'),
         ),
         drawer: Drawer(
           child: ListView(

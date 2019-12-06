@@ -15,7 +15,7 @@ class GuideListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz List'),
+        title: Text('Study Guide List'),
       ),
       body: Center(
         child: (guideList == null || guideList.length == 0) ? Container(child: Text('No study guides found!')) :

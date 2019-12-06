@@ -14,7 +14,7 @@ class UserListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz List'),
+        title: Text('Following List'),
       ),
       body: Center(
         child: (userList == null || userList.length == 0) ? Container(child: Text('No users found!')) :
