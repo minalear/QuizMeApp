@@ -1,11 +1,26 @@
+import 'package:QuizMe/controller/profilepage_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../model/user.dart';
 import '../controller/utilities.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   final User user;
   ProfilePage(this.user);
+
+  @override 
+  State<StatefulWidget> createState() {
+    return ProfilePageState(user);
+  }
+}
+
+class ProfilePageState extends State<ProfilePage> {
+
+  User user;
+  ProfilePageController controller;
+  ProfilePageState(this.user) {
+    controller = ProfilePageController(this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,48 +43,16 @@ class ProfilePage extends StatelessWidget {
               padding: EdgeInsets.only(top: 10),
             ),
             Container(child: Center(child: Text(user.email))),
-            Column(
-              children: user.studyGuides.map((data) {
-                return Container(
-                  padding: EdgeInsets.all(5),
-                  child: ListTile(
-                    leading: CachedNetworkImage(
-                      imageUrl: 'http://meganandtimmy.com/wp-content/uploads/2012/03/tan-index-card-hi.png',
-                      placeholder: (context, url) => CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error_outline),
-                    ),
-                    title: Text(data.title),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text('by ' + data.createdBy),
-                        Text(dateTimeFormat(data.pubDate, 'yyyy-MM-dd')),
-                      ],
-                    ),
-                    //onTap: () => controller.viewStudyGuide(user.quizzes[index]),
-                    onTap: () => (){},
-                    onLongPress: (){},
-                  )
-                );
-              }).toList(),
-            )
-          ],
-        )
-        /*child: ListView.builder(
-          itemCount: user.quizzes.length,
-          itemBuilder: (BuildContext context, int index) {
-            
-          },
-        )
-      )*/
-      /*body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            
+            RaisedButton(
+              child: Text('See All Quizzes'),
+              onPressed: controller.seeRecentQuizzes,
+            ),
+            RaisedButton(
+              child: Text('See All Study Guides'),
+              onPressed: controller.seeRecentStudyGuides,
+            ),
           ],
         ),
-      ),*/
       )
     );
   }
