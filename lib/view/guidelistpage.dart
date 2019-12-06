@@ -18,7 +18,8 @@ class GuideListPage extends StatelessWidget {
         title: Text('Quiz List'),
       ),
       body: Center(
-        child: ListView.builder(
+        child: (guideList == null || guideList.length == 0) ? Container(child: Text('No study guides found!')) :
+        ListView.builder(
           itemCount: guideList.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(

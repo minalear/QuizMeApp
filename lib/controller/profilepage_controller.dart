@@ -9,15 +9,19 @@ class ProfilePageController {
   ProfilePageController(this.state);
 
   void seeRecentQuizzes() async {
-    var quizList = await MyFirebase.getUserQuizzes(state.user.uid);
+    var quizList = await MyFirebase.getUserQuizzes(state.profileUser.uid);
     Navigator.push(state.context, MaterialPageRoute(
       builder: (context) => QuizListPage(state.user, quizList),
     ));
   }
   void seeRecentStudyGuides() async {
-    var guideList = await MyFirebase.getUserStudyGuides(state.user.uid);
+    var guideList = await MyFirebase.getUserStudyGuides(state.profileUser.uid);
     Navigator.push(state.context, MaterialPageRoute(
       builder: (context) => GuideListPage(state.user, guideList),
     ));
+  }
+  void followUser() async {
+    state.user.following.add(state.profileUser.uid);
+    MyFirebase.updateProfile(state.user);
   }
 }

@@ -8,7 +8,6 @@ class User {
   String uid;
   String profileImageUri;
   List<String> following;
-  List<String> followers;
 
   List<StudyGuide> studyGuides;
   List<Quiz> quizzes;
@@ -18,6 +17,7 @@ class User {
     this.password,
     this.username,
     this.uid,
+    this.following,
   });
 
   Map<String, dynamic> serialize() {
@@ -25,14 +25,21 @@ class User {
       EMAIL: email,
       USERNAME: username,
       UID: uid,
+      FOLLOWING: following
     };
   }
 
    static User deserialize(Map<String, dynamic> document) {
+    var followingList = List<String>();
+    for (var user in document[FOLLOWING]) {
+      followingList.add(user.toString());
+    }
+
     return User (
       email: document[EMAIL],
       username: document[USERNAME],
       uid: document[UID],
+      following: followingList,
     );
   }
 
@@ -40,5 +47,6 @@ class User {
   static const EMAIL = 'email';
   static const USERNAME = 'username';
   static const UID = 'uid';
+  static const FOLLOWING = 'following';
 }
 

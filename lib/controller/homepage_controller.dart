@@ -1,3 +1,4 @@
+import 'package:QuizMe/view/userlistpage.dart';
 import 'package:flutter/material.dart';
 import 'myfirebase.dart';
 import '../view/homepage.dart';
@@ -16,7 +17,7 @@ class HomePageController {
 
   void myProfile() {
     Navigator.push(state.context, MaterialPageRoute(
-      builder: (context) => ProfilePage(state.user),
+      builder: (context) => ProfilePage(state.user, state.user),
     ));
   }
 
@@ -42,7 +43,14 @@ class HomePageController {
   void viewProfilePage(String uid) async {
     var user = await MyFirebase.readProfile(uid);
     Navigator.push(state.context, MaterialPageRoute(
-      builder: (context) => ProfilePage(user)
+      builder: (context) => ProfilePage(state.user, user)
+    ));
+  }
+
+  void viewFollowerPage() async {
+    var userList = await MyFirebase.readProfileList(state.user.following);
+    Navigator.push(state.context, MaterialPageRoute(
+      builder: (context) => UserListPage(state.user, userList),
     ));
   }
 

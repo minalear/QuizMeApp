@@ -58,8 +58,8 @@ class HomePageState extends State<HomePage> {
               ),
               ListTile(
                 leading: Icon(Icons.people),
-                title: Text('Shared With Me'),
-                onTap: (){},
+                title: Text('View Followed Users'),
+                onTap: controller.viewFollowerPage,
               ),
               ListTile(
                 leading: Icon(Icons.exit_to_app),

@@ -18,7 +18,8 @@ class QuizListPage extends StatelessWidget {
         title: Text('Quiz List'),
       ),
       body: Center(
-        child: ListView.builder(
+        child: (quizList == null || quizList.length == 0) ? Container(child: Text('No quizzes found!')) :
+        ListView.builder(
           itemCount: quizList.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(

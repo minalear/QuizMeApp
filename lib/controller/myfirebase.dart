@@ -40,6 +40,20 @@ class MyFirebase {
       .document(uid).get();
     return User.deserialize(doc.data);
   }
+  static Future<List<User>> readProfileList(List<String> uids) async {
+    var userList = List<User>();
+    if (uids == null || uids.length == 0) return userList;
+
+    for (var uid in uids) {
+      if (uid == null || uid.length == 0) continue;
+
+      var user = await readProfile(uid);
+      if (user != null)
+        userList.add(user);
+    }
+
+    return userList;
+  }
   static Future<void> updateProfile(User user) async {
     await Firestore.instance.collection(User.PROFILE_COLLECTION)
       .document(user.uid)

@@ -2,23 +2,25 @@ import 'package:QuizMe/controller/profilepage_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../model/user.dart';
-import '../controller/utilities.dart';
 
 class ProfilePage extends StatefulWidget {
+  final User profileUser;
   final User user;
-  ProfilePage(this.user);
+  ProfilePage(this.user, this.profileUser);
 
   @override 
   State<StatefulWidget> createState() {
-    return ProfilePageState(user);
+    return ProfilePageState(user, profileUser);
   }
 }
 
 class ProfilePageState extends State<ProfilePage> {
 
   User user;
+  User profileUser;
   ProfilePageController controller;
-  ProfilePageState(this.user) {
+
+  ProfilePageState(this.user, this.profileUser) {
     controller = ProfilePageController(this);
   }
 
@@ -32,17 +34,17 @@ class ProfilePageState extends State<ProfilePage> {
         child: ListView(
           children: <Widget>[
             CachedNetworkImage(
-              imageUrl: (user.profileImageUri == null) ? "" : user.profileImageUri,
+              imageUrl: (profileUser.profileImageUri == null) ? "" : profileUser.profileImageUri,
               placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => Icon(Icons.error_outline, size: 250),
               width: 250,
               height: 250,
             ),
             Container(
-              child: Center(child: Text(user.username, style: TextStyle(fontSize: 35))),
+              child: Center(child: Text(profileUser.username, style: TextStyle(fontSize: 35))),
               padding: EdgeInsets.only(top: 10),
             ),
-            Container(child: Center(child: Text(user.email))),
+            Container(child: Center(child: Text(profileUser.email))),
             RaisedButton(
               child: Text('See All Quizzes'),
               onPressed: controller.seeRecentQuizzes,
@@ -51,6 +53,10 @@ class ProfilePageState extends State<ProfilePage> {
               child: Text('See All Study Guides'),
               onPressed: controller.seeRecentStudyGuides,
             ),
+            RaisedButton(
+              child: Text('Follow User'),
+              onPressed: controller.followUser,
+            )
           ],
         ),
       )
