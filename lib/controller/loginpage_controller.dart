@@ -47,15 +47,15 @@ class LoginPageController {
     try {
       user = await MyFirebase.readProfile(user.uid);
     } catch (e) {
-      PopUp.info(
+      /*PopUp.info(
         context: state.context,
         title: 'Login Unsuccessful',
-        message: e.message != null ? e.message : e.toString(),
+        message: (e != null && e.message != null) ? e.message : e.toString(),
         action: () {
           Navigator.pop(state.context);
           return;
         },
-      );
+      );*/
     }
 
     try {

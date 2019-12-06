@@ -38,7 +38,9 @@ class MyFirebase {
   static Future<User> readProfile(String uid) async {
     var doc = await Firestore.instance.collection(User.PROFILE_COLLECTION)
       .document(uid).get();
-    return User.deserialize(doc.data);
+    var user = User.deserialize(doc.data);
+    user.profileImageUri = await getProfileImage(user.uid);
+    return user;
   }
   static Future<List<User>> readProfileList(List<String> uids) async {
     var userList = List<User>();

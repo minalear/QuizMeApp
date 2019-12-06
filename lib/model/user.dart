@@ -31,8 +31,11 @@ class User {
 
    static User deserialize(Map<String, dynamic> document) {
     var followingList = List<String>();
-    for (var user in document[FOLLOWING]) {
-      followingList.add(user.toString());
+    
+    if (document[FOLLOWING] != null) {
+      for (var user in document[FOLLOWING]) {
+        followingList.add(user.toString());
+      }
     }
 
     return User (
