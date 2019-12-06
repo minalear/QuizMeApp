@@ -39,8 +39,11 @@ class HomePageController {
     ));
   }
 
-  void voidUserProfile(String uid) async {
-
+  void viewProfilePage(String uid) async {
+    var user = await MyFirebase.readProfile(uid);
+    Navigator.push(state.context, MaterialPageRoute(
+      builder: (context) => ProfilePage(user)
+    ));
   }
 
   void loadRecentActivity() async {

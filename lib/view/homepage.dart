@@ -86,7 +86,7 @@ class HomePageState extends State<HomePage> {
               child: ListTile(
                 leading: Image.asset('assets/user_icon.png'),
                 title: Text(recentActivityList[index]["activity"]),
-                onTap: (){},
+                onTap: () => controller.viewProfilePage(recentActivityList[index]["user"]),
                 onLongPress: (){},
               )
             );
